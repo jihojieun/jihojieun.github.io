@@ -1,0 +1,2823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>지호 ♥ 지은 결혼합니다</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="지호 ♥ 지은 결혼합니다.">
+<meta property="og:description" content="26년 9월 6일 일요일 오후 1시 WI컨벤션 W홀">
+<meta property="og:image" content="https://jihojieun.github.io/images/kakao-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="지호와 지은의 결혼식">
+<meta property="og:url" content="https://jihojieun.github.io/">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="WI 컨벤션 W홀">
+
+
+<!-- 폰트: Pretendard(모던 한글 산세리프) + Italiana/Cormorant(우아한 영문) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Italiana&family=Noto+Serif+KR:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="preload" href="main_intro.mp4" as="video" type="video/mp4">
+<link rel="preload" href="images/main_intro.webp" as="image" type="image/webp">
+<link rel="preload" href="background_music.mp3" as="audio" type="audio/mpeg">
+
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=ypx3ild11c&submodules=geocoder"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
+
+<style>
+:root {
+    --bg: #fbfaf7;
+    --paper: #ffffff;
+    --ink: #1a1a1a;
+    --sub: #6e6e6e;
+    --mute: #a8a8a8;
+    --line: #ececea;
+    --soft: #f4f2ed;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html { scroll-behavior: smooth; }
+
+html, body {
+    background: #e8e5dc;
+    color: var(--ink);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    letter-spacing: -0.005em;
+    word-break: keep-all;
+}
+
+body {
+    max-width: 460px;
+    margin: 0 auto;
+    background: var(--bg);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.06);
+    overflow-x: hidden;
+}
+
+body.intro-active {
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+
+html.intro-lock,
+html.intro-lock body {
+    height: 100%;
+    overflow: hidden;
+}
+
+img { max-width: 100%; display: block; }
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+section {
+    padding: 90px 28px;
+    text-align: center;
+    position: relative;
+}
+
+.intro-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    opacity: 1;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    touch-action: none;
+    overscroll-behavior: none;
+    contain: layout paint size;
+}
+
+.intro-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-video {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: calc(100vw * 854 / 480);
+    min-height: 100vh;
+    min-height: 100dvh;
+    object-fit: fill;
+    background: transparent;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    transform: translate3d(0, -50%, 0);
+    backface-visibility: hidden;
+    clip-path: inset(2px 0);
+}
+
+.intro-poster {
+    z-index: 1;
+}
+
+.intro-video-player,
+.intro-fallback {
+    z-index: 2;
+}
+
+.intro-screen.video-ready .intro-video.is-active {
+    opacity: 1;
+}
+
+.invitation-page {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.invitation-page.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: var(--mute);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 19px;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 48px;
+}
+
+.title.one-line {
+    white-space: nowrap;
+    font-size: clamp(15px, 4.6vw, 19px);
+    letter-spacing: 0;
+}
+
+.divider-line {
+    width: 28px;
+    height: 1px;
+    background: var(--ink);
+    margin: 32px auto;
+    opacity: 0.6;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cover {
+    padding: 0;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cover-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: url('images/main.jpg') center/cover no-repeat,
+                linear-gradient(180deg, #d8cfbe 0%, #b8a98d 100%);
+    position: relative;
+}
+
+.cover-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.05) 100%);
+}
+
+.cover-text {
+    padding: 44px 28px 56px;
+    text-align: center;
+    background: var(--bg);
+    width: 100%;
+    animation: rise 1.4s ease-out 0.2s both;
+}
+
+.cover-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    color: var(--sub);
+    margin-bottom: 18px;
+}
+
+.cover-names {
+    font-family: 'Italiana', 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 38px;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 24px;
+}
+
+.cover-names .amp {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 32px;
+    color: var(--sub);
+    display: block;
+    margin: 4px 0;
+}
+
+.cover-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    color: var(--sub);
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: inline-block;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+@keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.greeting { background: var(--bg); }
+
+.greeting-text {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 2.3;
+    color: var(--ink);
+    white-space: pre-line;
+}
+
+.signature {
+    margin-top: 50px;
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 2.2;
+}
+
+.signature .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.signature strong {
+    color: var(--ink);
+    font-weight: 400;
+}
+
+.calendar-section {
+    background: var(--paper);
+}
+
+.wedding-place-sub {
+    margin-top: -36px;
+    margin-bottom: 42px;
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--sub);
+    letter-spacing: 0.04em;
+}
+
+.calendar-grid {
+    margin: 40px auto 0;
+    max-width: 320px;
+}
+
+.cal-month {
+    font-family: 'Italiana', serif;
+    font-size: 32px;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    margin-bottom: 4px;
+}
+
+.cal-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--mute);
+    margin-bottom: 28px;
+}
+
+table.cal {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.cal th,
+table.cal td {
+    padding: 10px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    text-align: center;
+    color: var(--ink);
+}
+
+table.cal th {
+    color: var(--mute);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+table.cal td.sun { color: #c8857d; }
+table.cal td.empty { color: transparent; }
+
+table.cal td.wed {
+    color: #fff !important;
+    font-weight: 600;
+}
+table.cal td.wed span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: var(--ink);
+    border-radius: 50%;
+}
+
+.dday-row {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--sub);
+}
+
+.dday-row strong {
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    margin: 0 4px;
+}
+
+.btn-calendar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    padding: 12px 26px;
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+}
+
+.btn-calendar:hover {
+    background: var(--ink);
+    color: #fff;
+}
+
+.btn-calendar svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 1.5;
+}
+
+/* ===== 4. 갤러리 ===== */
+.gallery-section {
+    background: var(--bg);
+    padding: 90px 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 0 28px;
+}
+
+.gallery-grid .item {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--soft);
+    cursor: pointer;
+    position: relative;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-grid .item:active img {
+    transform: scale(0.98);
+}
+
+.couple-section {
+    background: var(--paper);
+}
+
+.couple {
+    display: grid;
+    gap: 60px;
+}
+
+.person {
+    text-align: center;
+}
+
+.person-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 22px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+}
+
+.person-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.person-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.4em;
+    color: var(--mute);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.person-name {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: 0.25em;
+    color: var(--ink);
+    margin-bottom: 14px;
+}
+
+.person-parents {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.9;
+}
+
+.person-parents strong {
+    color: var(--ink);
+    font-weight: 400;
+    margin: 0 3px;
+}
+
+.contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+}
+
+.contact-row a {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.contact-row a:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+}
+
+.contact-row svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 1.5;
+}
+
+.ceremony-section {
+    background: var(--paper);
+}
+
+.ceremony-info {
+    text-align: center;
+}
+
+.ceremony-item {
+    padding: 22px 0;
+}
+
+.ceremony-item:last-child {
+    padding-bottom: 0;
+}
+
+.ceremony-label {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+}
+
+.ceremony-text {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    color: var(--sub);
+    font-size: 14px;
+    line-height: 2;
+}
+
+.ceremony-text strong {
+    color: var(--ink);
+    font-weight: 400;
+}
+
+/* ===== 7. 오시는 길 ===== */
+.location-section { background: var(--bg); }
+
+.location-section .transport {
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.venue { margin-bottom: 30px; }
+
+.venue .name {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 8px;
+}
+
+.venue .addr {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.8;
+}
+
+.venue .floor {
+    font-size: 12px;
+    color: var(--mute);
+    margin-top: 4px;
+}
+
+.btn-address-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 18px;
+    padding: 10px 18px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    transition: all 0.2s ease;
+}
+
+.btn-address-copy:active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+}
+
+.btn-address-copy svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 1.6;
+}
+
+#map {
+    width: 100%;
+    height: 260px;
+    background: var(--soft);
+    margin-bottom: 12px;
+}
+
+.map-btns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-bottom: 36px;
+}
+
+.map-btns a {
+    padding: 12px 4px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.map-btns a:active {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+}
+
+.transport {
+    font-family: 'Noto Serif KR', serif;
+    text-align: left;
+    padding-top: 30px;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.transport-row {
+    margin-bottom: 34px;
+}
+
+.transport-row:last-child { margin-bottom: 0; }
+
+.transport-row .lbl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px dashed #dedbd3;
+    color: var(--ink);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.transport-row .lbl::before {
+    content: attr(data-icon);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 400;
+    flex: 0 0 auto;
+}
+
+.transport-row .desc {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    color: var(--ink);
+    font-size: clamp(8px, 2.45vw, 12px);
+    line-height: 1.95;
+    letter-spacing: 0;
+}
+
+.transport-note {
+    margin-bottom: 14px;
+    color: var(--ink);
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+.transport-note .sub {
+    display: block;
+    margin-top: 2px;
+    color: var(--sub);
+    font-weight: 300;
+    white-space: nowrap;
+}
+
+.transport-group {
+    margin-top: 18px;
+}
+
+.transport-group:first-child {
+    margin-top: 0;
+}
+
+.transport-group-title {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 2px 9px;
+    background: var(--soft);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+}
+
+.transport-list {
+    list-style: none;
+}
+
+.transport-list li {
+    padding: 4px 0;
+    color: var(--sub);
+    font-size: clamp(8px, 2.45vw, 12px);
+    line-height: 1.7;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.transport-list strong {
+    color: var(--ink);
+    font-weight: 400;
+}
+
+.transport-list .route {
+    color: #7f6a4f;
+    font-weight: 400;
+}
+
+/* ===== 7. 마음 전하실 곳 ===== */
+.account-section { background: var(--paper); }
+
+.account-section .title,
+.account-section .intro-text {
+    font-family: 'Noto Serif KR', serif;
+}
+
+.account-section .title {
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+.account-section .intro-text {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 2.2;
+}
+
+.intro-text {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 2;
+    margin-bottom: 36px;
+}
+
+.acc-toggle {
+    width: 100%;
+    padding: 18px 22px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.25s ease;
+}
+
+.acc-toggle:hover { border-color: var(--ink); }
+
+.acc-toggle .arrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--sub);
+    transition: transform 0.3s ease;
+}
+
+.acc-toggle.open .arrow { transform: rotate(180deg); }
+
+.acc-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    margin-bottom: 6px;
+}
+
+.acc-list.open { max-height: 500px; }
+
+.acc-item {
+    background: var(--soft);
+    padding: 16px 22px;
+    text-align: left;
+    font-size: 13px;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.acc-item .info { flex: 1; min-width: 180px; }
+.acc-item .small { color: var(--mute); font-size: 11px; letter-spacing: 0.05em; }
+.acc-item .num {
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+}
+
+.copy-btn {
+    padding: 7px 14px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+}
+
+.music-toggle,
+.font-toggle {
+    position: fixed;
+    right: max(16px, calc((100vw - 460px) / 2 + 16px));
+    bottom: 18px;
+    z-index: 21000;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.48);
+    border: 1px solid rgba(26, 26, 26, 0.08);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.font-toggle {
+    bottom: 76px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.font-toggle svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+}
+
+.music-toggle:active,
+.font-toggle:active,
+.font-toggle.active {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(0.94);
+}
+
+.music-toggle svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+}
+
+.music-toggle .icon-pause,
+.music-toggle.playing .icon-play {
+    display: none;
+}
+
+.music-toggle.playing .icon-pause {
+    display: block;
+}
+
+.menu-toggle {
+    position: fixed;
+    left: max(16px, calc((100vw - 460px) / 2 + 16px));
+    bottom: 18px;
+    z-index: 21000;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.48);
+    border: 1px solid rgba(26, 26, 26, 0.08);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.menu-toggle:active,
+.menu-toggle.open {
+    background: rgba(255, 255, 255, 0.72);
+    transform: scale(0.94);
+}
+
+.menu-toggle svg {
+    width: 19px;
+    height: 19px;
+    stroke-width: 1.7;
+}
+
+.quick-menu-panel {
+    position: fixed;
+    left: 50%;
+    bottom: 76px;
+    z-index: 20999;
+    width: min(360px, calc(100vw - 56px));
+    max-width: calc(460px - 56px);
+    padding: 18px 0;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(26, 26, 26, 0.08);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 10px);
+    transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+}
+
+.quick-menu-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.quick-menu-panel button {
+    width: 100%;
+    padding: 11px 24px;
+    color: var(--ink);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+.quick-menu-panel button:active {
+    background: rgba(244, 242, 237, 0.8);
+}
+
+body.font-expanded .title.one-line,
+body.font-expanded .transport-row .lbl,
+body.font-expanded .transport-note,
+body.font-expanded .transport-note .sub,
+body.font-expanded .transport-list li,
+body.font-expanded .share-btns button {
+    white-space: normal;
+}
+
+body.font-expanded .transport-row .lbl {
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+body.font-expanded .invitation-page p,
+body.font-expanded .invitation-page li,
+body.font-expanded .invitation-page button,
+body.font-expanded .quick-menu-panel button {
+    overflow-wrap: anywhere;
+}
+
+body.intro-active .music-toggle,
+body.intro-active .font-toggle,
+body.intro-active .menu-toggle,
+body.intro-active .quick-menu-panel {
+    display: none;
+}
+
+.share-section {
+    background: var(--bg);
+    padding: 70px 28px 90px;
+    text-align: center;
+}
+
+.share-btns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 30px;
+}
+
+.share-btns button {
+    min-width: 0;
+    padding: 12px 8px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.share-btns button:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+}
+
+.share-btns svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 1.7;
+}
+
+.footer-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--mute);
+    letter-spacing: 0.15em;
+    margin-top: 60px;
+    line-height: 2;
+}
+
+.watermark {
+    margin-top: 44px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--mute);
+    opacity: 0.55;
+    text-transform: lowercase;
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.94);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.25s ease;
+}
+
+.lightbox.open { display: flex; }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lightbox-img {
+    max-width: 92vw;
+    max-height: 80vh;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    touch-action: pan-y;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-close {
+    top: 18px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.lightbox-prev,
+.lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+}
+
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+    .lightbox-prev { left: 8px; width: 40px; height: 40px; font-size: 22px; }
+    .lightbox-next { right: 8px; width: 40px; height: 40px; font-size: 22px; }
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: rgba(26, 26, 26, 0.96);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    z-index: 9999;
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+.upload-section { background: var(--bg); }
+
+.upload-section .title,
+.upload-section .intro-text {
+    font-family: 'Noto Serif KR', serif;
+}
+
+.upload-section .title {
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+.upload-section .intro-text {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--sub);
+}
+
+.upload-form {
+    max-width: 360px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.upload-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    transition: border-color 0.2s ease;
+    outline: none;
+}
+
+.upload-input:focus { border-color: var(--ink); }
+.upload-input::placeholder { color: var(--mute); }
+
+.file-label {
+    width: 100%;
+    padding: 28px 22px;
+    background: var(--paper);
+    border: 1px dashed #d0ccc2;
+    color: var(--sub);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.file-label:hover,
+.file-label.has-files {
+    border-color: var(--ink);
+    color: var(--ink);
+    border-style: solid;
+}
+
+.file-label svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.4;
+}
+
+.file-label-main {
+    font-size: 13px;
+    letter-spacing: 0.02em;
+}
+
+.file-label-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--mute);
+    text-transform: uppercase;
+}
+
+.file-preview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.file-preview:empty { margin-top: 0; }
+
+.file-preview .thumb {
+    aspect-ratio: 1 / 1;
+    background: var(--soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.file-preview .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.file-preview .thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #2a2a2a;
+}
+
+.file-preview .thumb.is-video::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.35) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.file-preview .thumb.is-video::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    padding-left: 2px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.file-preview .thumb .duration {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    padding: 1px 6px;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
+.file-preview .thumb .remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    line-height: 20px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    z-index: 3;
+}
+
+.upload-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 14px;
+    background: var(--ink);
+    color: #fff;
+    border: 1px solid var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    transition: all 0.25s ease;
+}
+
+.upload-btn:disabled {
+    background: var(--soft);
+    color: var(--mute);
+    border-color: var(--line);
+    cursor: not-allowed;
+}
+
+.upload-progress {
+    margin-top: 18px;
+    display: none;
+}
+
+.upload-progress.active { display: block; }
+
+.progress-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--sub);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.progress-text .pct {
+    color: var(--ink);
+    font-weight: 400;
+    margin-left: 6px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 2px;
+    background: var(--line);
+    overflow: hidden;
+    border-radius: 1px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--ink);
+    transition: width 0.2s ease;
+}
+
+.upload-result {
+    margin-top: 18px;
+    padding: 14px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.7;
+    display: none;
+}
+
+.upload-result.success {
+    display: block;
+    background: var(--soft);
+    color: var(--ink);
+}
+
+.upload-result.error {
+    display: block;
+    border: 1px solid #e2c4c0;
+    color: #b86a62;
+}
+
+.upload-hint {
+    margin-top: 14px;
+    font-size: 11px;
+    color: var(--mute);
+    text-align: center;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+}
+</style>
+</head>
+<body class="intro-active">
+
+<div class="intro-screen video-ready" id="intro-screen" aria-label="인트로 영상">
+    <img class="intro-video intro-poster is-active" id="intro-poster" src="images/intro-first-frame.jpg" alt="">
+    <video class="intro-video intro-video-player" id="intro-video" muted playsinline webkit-playsinline preload="auto" poster="images/intro-first-frame.jpg">
+        <source src="main_intro.mp4" type="video/mp4">
+    </video>
+    <img class="intro-video intro-fallback" id="intro-fallback" src="images/intro-first-frame.jpg" data-src="images/main_intro.webp" alt="">
+</div>
+
+<main class="invitation-page" id="invitation-page">
+
+<section class="cover" id="top">
+    <div class="cover-photo"></div>
+    <div class="cover-text">
+        <div class="cover-eyebrow">SAVE THE DATE</div>
+        <div class="cover-names">
+            Jiho<span class="amp">&</span>Jieun
+        </div>
+        <div class="cover-date">2026 . 09 . 06 . SUN</div>
+    </div>
+</section>
+
+<section class="greeting fade-in" id="invitation">
+    <div class="eyebrow">Invitation</div>
+    <h2 class="title">초대합니다</h2>
+
+    <p class="greeting-text">서로가 마주보며 다져온 사랑을
+이제 함께 한 곳을 바라보며
+걸어갈 수 있는 큰 사랑으로
+키우고자 합니다.
+
+9월의 어느 날,
+늘 곁에서 아껴주신 소중한 분들을 모십니다.
+소중한 걸음으로 함께하시어
+저희의 앞날을 따뜻하게 축복해 주시면
+진심으로 감사하겠습니다.</p>
+
+    <div class="divider-line"></div>
+
+    <div class="signature">
+        <div class="row"><strong>엄익선</strong> · <strong>신은숙</strong>의 아들 <strong>지호</strong></div>
+        <div class="row"><strong>이삼우</strong> · <strong>마남숙</strong>의 딸 <strong>지은</strong></div>
+    </div>
+</section>
+
+<section class="calendar-section fade-in">
+    <div class="eyebrow">The Wedding Day</div>
+    <h2 class="title one-line">2026년 9월 6일 일요일 오후 1시</h2>
+    <p class="wedding-place-sub">수원 WI컨벤션 W홀</p>
+
+    <div class="calendar-grid">
+        <div class="cal-month">SEPTEMBER</div>
+        <div class="cal-year">Two Thousand Twenty-Six</div>
+        <table class="cal">
+            <thead>
+                <tr><th class="sun">SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="empty">·</td><td class="empty">·</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                <tr><td class="wed"><span>6</span></td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+                <tr><td class="sun">13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                <tr><td class="sun">20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+                <tr><td class="sun">27</td><td>28</td><td>29</td><td>30</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td></tr>
+            </tbody>
+        </table>
+
+        <div class="dday-row">
+            결혼식까지 <strong id="dday-count">D-000</strong>
+        </div>
+
+        <button class="btn-calendar" onclick="addToCalendar()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>캘린더에 일정 추가</span>
+        </button>
+    </div>
+</section>
+
+<section class="gallery-section fade-in" id="gallery">
+    <div style="padding: 0 28px;">
+        <div class="eyebrow">Gallery</div>
+        <h2 class="title">우리의 순간</h2>
+    </div>
+
+    <div class="gallery-grid">
+        <div class="item" onclick="openLightbox(0)"><img src="images/g1.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4c5b0,#9c8a6e)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(1)"><img src="images/g2.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8ddc8,#c4ad88)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(2)"><img src="images/g3.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b89e7f,#8a7156)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(3)"><img src="images/g4.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#cdb89c,#a08a6c)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(4)"><img src="images/g5.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#d4c5b0)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(5)"><img src="images/g6.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4c5b0,#9c8a6e)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(6)"><img src="images/g7.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8ddc8,#c4ad88)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(7)"><img src="images/g8.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b89e7f,#8a7156)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(8)"><img src="images/g9.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#cdb89c,#a08a6c)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(9)"><img src="images/g10.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#d4c5b0)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(10)"><img src="images/g11.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4c5b0,#9c8a6e)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(11)"><img src="images/g12.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8ddc8,#c4ad88)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(12)"><img src="images/g13.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b89e7f,#8a7156)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(13)"><img src="images/g14.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#cdb89c,#a08a6c)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(14)"><img src="images/g15.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#d4c5b0)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(15)"><img src="images/g16.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4c5b0,#9c8a6e)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(16)"><img src="images/g17.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8ddc8,#c4ad88)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(17)"><img src="images/g18.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b89e7f,#8a7156)';this.style.display='none'"></div>
+    </div>
+</section>
+
+<section class="couple-section fade-in" id="contact">
+    <div class="eyebrow">The Couple</div>
+    <h2 class="title">신랑 신부</h2>
+
+    <div class="couple">
+        <div class="person">
+            <div class="person-photo">
+                <img src="images/groom.jpeg" alt="신랑" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#6e5d44)';this.style.display='none'">
+            </div>
+            <div class="person-role">GROOM</div>
+            <div class="person-name">지 호</div>
+            <div class="person-parents">
+                <strong>엄익선</strong> · <strong>신은숙</strong>의 아들
+            </div>
+            <div class="contact-row">
+                <a href="tel:01049371130" aria-label="전화">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+                <a href="sms:01049371130" aria-label="문자">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="person">
+            <div class="person-photo">
+                <img src="images/bride.jpeg" alt="신부" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#b88a85)';this.style.display='none'">
+            </div>
+            <div class="person-role">BRIDE</div>
+            <div class="person-name">지 은</div>
+            <div class="person-parents">
+                <strong>이삼우</strong> · <strong>마남숙</strong>의 딸
+            </div>
+            <div class="contact-row">
+                <a href="tel:01091215718" aria-label="전화">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+                <a href="sms:01091215718" aria-label="문자">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ceremony-section fade-in" id="info">
+    <div class="eyebrow">Information</div>
+    <h2 class="title">예식 정보</h2>
+
+    <div class="ceremony-info">
+        <div class="ceremony-item">
+            <div class="ceremony-label">예식장소 안내</div>
+            <div class="ceremony-text">예식은 <strong>1층 W홀</strong>에서 진행됩니다.</div>
+        </div>
+
+        <div class="ceremony-item">
+            <div class="ceremony-label">연회장 안내</div>
+            <div class="ceremony-text">
+                연회장은 W홀 바로 옆 <strong>1층</strong>에 마련되어 있으며<br>
+                이용시간은 <strong>12:30 ~ 14:30</strong> 입니다.
+            </div>
+        </div>
+
+        <div class="ceremony-item">
+            <div class="ceremony-label">화환</div>
+            <div class="ceremony-text">
+                화환 대신 마음만 감사히 받겠습니다.<br>
+                소중한 걸음 해주시는 모든 분들께 감사드립니다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="location-section fade-in" id="location">
+    <div class="eyebrow">Location</div>
+    <h2 class="title">오시는 길</h2>
+
+    <div class="venue">
+        <div class="name">WI 컨벤션 W홀</div>
+        <div class="addr" id="venue-address">경기 수원시 팔달구 월드컵로 310<br>(구. 우만동 209번지)</div>
+        <button class="btn-address-copy" onclick="copyText('경기 수원시 팔달구 월드컵로 310')" aria-label="주소 복사">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span>주소 복사</span>
+        </button>
+        <div class="floor"></div>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="map-btns">
+        <a href="#" id="naver-link" target="_blank">네이버지도</a>
+        <a href="#" id="kakao-link" target="_blank">카카오맵</a>
+        <a href="#" id="tmap-link">티맵</a>
+    </div>
+
+    <div class="transport">
+        <!-- [수정] 교통편 안내 -->
+        <div class="transport-row">
+            <div class="lbl" data-icon="🚇">지하철</div>
+            <div class="desc">
+                <p class="transport-note">
+                    <strong>수원시청역</strong> (수인분당선)
+                    <span class="sub">정시기준 약 20분 간격 웨딩홀 셔틀 운행 (9번 출구 앞 탑승)</span>
+                </p>
+            </div>
+        </div>
+        <div class="transport-row">
+            <div class="lbl" data-icon="🚌">버스</div>
+            <div class="desc">
+                <p class="transport-note">
+                    <strong>수원월드컵경기장, 동성중학교</strong> 정류장 하차
+                </p>
+
+                <div class="transport-group">
+                    <div class="transport-group-title">광역버스</div>
+                    <ul class="transport-list">
+                        <li><strong>서울역버스환승센터</strong> (6번 승강장) <span class="route">8800번</span></li>
+                        <li><strong>을지로입구역</strong> (명동성당, 남대문세무서 승차) <span class="route">8800번</span></li>
+                        <li><strong>사당역</strong> (4번출구 승차) <span class="route">7001번</span></li>
+                        <li><strong>사당역 3번출구</strong> (사당역 중 승차) <span class="route">7000번</span></li>
+                        <li><strong>강남역 5번출구</strong> (강남역나라빌딩 앞 승차) <span class="route">3007번</span></li>
+                        <li><strong>양재역 9번출구</strong> (양재역커피빈 앞 승차) <span class="route">3007번, 3008번</span></li>
+                        <li><strong>잠실역 2번출구</strong> (잠실역, 롯데월드 승차) <span class="route">1007-1번</span></li>
+                        <li><strong>야탑역 1번출구</strong> (종합버스터미널 승차) <span class="route">4000번, 4500번</span></li>
+                    </ul>
+                </div>
+
+                <div class="transport-group">
+                    <div class="transport-group-title">지선버스</div>
+                    <ul class="transport-list">
+                        <li><strong>수원시청역 1번출구</strong> (국민연금공단, 경인일보 정류장) <span class="route">80번</span></li>
+                        <li><strong>수원시청역 9번출구</strong> (국민연금공단 정류장) <span class="route">99-2번, 4000번, 4500번</span></li>
+                        <li><strong>수원터미널 정류장</strong> <span class="route">80번, 3007번, 4000번, 4500번, 7001번, 8800번</span></li>
+                        <li><strong>서현역 AK플라자 정류장</strong> 탑승 <span class="route">720-1번</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="transport-row">
+            <div class="lbl" data-icon="P">자가용 / 주차</div>
+            <div class="desc">
+                <p class="transport-note">
+                    네비게이션에 <strong>"WI 컨벤션"</strong> 또는 <strong>"수원 월드컵 경기장"</strong> 입력
+                    <span class="sub">무료 주차시간은 2시간이며, P6를 제외한 모든 주차장 이용 가능합니다</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="account-section fade-in" id="account">
+    <div class="eyebrow">With Heart</div>
+    <h2 class="title">마음 전하실 곳</h2>
+
+    <p class="intro-text">
+        멀리서도 축하의 마음을<br>
+        전하고 싶으신 분들을 위해<br>
+        계좌번호를 안내해 드립니다.<br>
+         <br>
+        소중한 축하를 보내주셔서 감사드리며,<br>
+        따뜻한 마음에 깊이 감사드립니다.
+    </p>
+
+    <button class="acc-toggle" onclick="toggleAccount(this)">
+        <span>신랑측 계좌번호</span>
+        <span class="arrow">∨</span>
+    </button>
+    <div class="acc-list">
+        <!-- [수정] 계좌번호 -->
+        <div class="acc-item">
+            <div class="info">
+                <div class="small">신랑 엄지호</div>
+                <div class="num">카카오 3333-06-0860366</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('3333-06-0860366')">COPY</button>
+        </div>
+        <div class="acc-item">
+            <div class="info">
+                <div class="small">아버지 엄익선</div>
+                <div class="num">농협 301-4765-1180-11</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('301-4765-1180-11')">COPY</button>
+        </div>
+        <div class="acc-item">
+            <div class="info">
+                <div class="small">어머니 신은숙</div>
+                <div class="num">농협 241094-56-069333</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('241094-56-069333')">COPY</button>
+        </div>
+    </div>
+
+    <button class="acc-toggle" onclick="toggleAccount(this)">
+        <span>신부측 계좌번호</span>
+        <span class="arrow">∨</span>
+    </button>
+    <div class="acc-list">
+        <div class="acc-item">
+            <div class="info">
+                <div class="small">신부 이지은</div>
+                <div class="num">케이뱅크 100-106-6500089</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('100-106-6500089')">COPY</button>
+        </div>
+        <div class="acc-item">
+            <div class="info">
+                <div class="small">아버지 이삼우</div>
+                <div class="num">국민은행 422001-04-216620</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('422001-04-216620')">COPY</button>
+        </div>
+        <div class="acc-item">
+            <div class="info">
+                <div class="small">어머니 마남숙</div>
+                <div class="num">우리은행 1002-335-056746</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('1002-335-056746')">COPY</button>
+        </div>
+    </div>
+</section>
+
+<section class="upload-section fade-in" id="guest-snap">
+    <div class="eyebrow">Photo &amp; Video Share</div>
+    <h2 class="title">게스트 스냅</h2>
+
+    <p class="intro-text">
+        신랑 · 신부의 행복한 순간을 담아주세요<br>
+        (미디어 서버는 예식 당일날부터 오픈됩니다)<br>
+    </p>
+
+    <div class="upload-form">
+        <input type="text" id="guest-name" class="upload-input" placeholder="성함을 입력해 주세요" maxlength="20">
+
+        <label for="photo-input" class="file-label" id="file-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span class="file-label-main" id="file-label-main">사진 또는 동영상을 선택해 주세요</span>
+            <span class="file-label-sub">SELECT FILES</span>
+        </label>
+        <input type="file" id="photo-input" accept="image/*,video/*" multiple style="display:none">
+
+        <div class="file-preview" id="file-preview"></div>
+
+        <button class="upload-btn" id="upload-btn" onclick="uploadPhotos()" disabled>보내기</button>
+
+        <div class="upload-progress" id="upload-progress">
+            <div class="progress-text">
+                <span id="progress-label">업로드 중입니다</span>
+                <span class="pct" id="progress-pct">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="upload-result" id="upload-result"></div>
+
+        <div class="upload-hint">
+            한 번에 최대 100개 · 사진 500MB · 영상 2GB 이하<br>
+            (동영상은 용량이 크니 Wi-Fi 환경을 권장합니다)
+        </div>
+    </div>
+</section>
+
+<section class="share-section fade-in" id="share">
+    <div class="eyebrow">Thank You</div>
+    <h2 class="title">함께 해주셔서 감사합니다</h2>
+
+    <div class="share-btns" id="share-buttons">
+        <button onclick="shareKakao()">카카오톡 공유</button>
+        <button onclick="copyURL()">링크 복사</button>
+        <button onclick="shareMore()" aria-label="더 많은 방법으로 공유">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 16V4"/>
+                <path d="M7 9l5-5 5 5"/>
+                <path d="M20 16v4H4v-4"/>
+            </svg>
+            <span>MORE</span>
+        </button>
+    </div>
+
+    <div class="footer-quote">
+        Two souls, one heart<br>
+        Jiho &amp; Jieun · 2026.09.06
+    </div>
+
+    <div class="watermark">made by jiho</div>
+</section>
+
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="닫기">✕</button>
+    <button class="lightbox-prev" onclick="prevImage(event)" aria-label="이전">‹</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <button class="lightbox-next" onclick="nextImage(event)" aria-label="다음">›</button>
+    <div class="lightbox-counter" id="lightbox-counter">1 / 18</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<audio id="bg-music" src="background_music.mp3" preload="auto" autoplay loop></audio>
+<button class="font-toggle" id="font-toggle" type="button" onclick="toggleFontSize()" aria-label="글씨 크기 확대">
+    <svg id="font-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M20 20l-3.5-3.5"/>
+    </svg>
+</button>
+<button class="music-toggle" id="music-toggle" type="button" onclick="toggleMusic()" aria-label="배경 음악 재생">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M7 5h4v14H7zM13 5h4v14h-4z"/>
+    </svg>
+</button>
+
+<button class="menu-toggle" id="menu-toggle" type="button" onclick="toggleQuickMenu(event)" aria-label="메뉴 열기">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
+        <path d="M5 7h14"/>
+        <path d="M5 12h14"/>
+        <path d="M5 17h14"/>
+    </svg>
+</button>
+
+<div class="quick-menu-panel" id="quick-menu-panel" aria-hidden="true">
+    <button type="button" onclick="scrollToSection('top')">처음으로</button>
+    <button type="button" onclick="scrollToSection('invitation')">모시는 글</button>
+    <button type="button" onclick="scrollToSection('gallery')">갤러리</button>
+    <button type="button" onclick="scrollToSection('contact')">연락처</button>
+    <button type="button" onclick="scrollToSection('info')">안내사항</button>
+    <button type="button" onclick="scrollToSection('location')">오시는 길</button>
+    <button type="button" onclick="scrollToSection('account')">마음 전하실 곳</button>
+    <button type="button" onclick="scrollToSection('guest-snap')">게스트 스냅</button>
+    <button type="button" onclick="scrollToSection('share-buttons')">청첩장 공유</button>
+</div>
+
+<script>
+
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('go') === 'map') {
+        const address = encodeURIComponent('경기 수원시 팔달구 월드컵로 310');
+        window.location.replace('https://map.naver.com/p/search/' + address);
+    }
+})();
+
+(function() {
+    const intro = document.getElementById('intro-screen');
+    const introPoster = document.getElementById('intro-poster');
+    const introVideo = document.getElementById('intro-video');
+    const introFallback = document.getElementById('intro-fallback');
+    const page = document.getElementById('invitation-page');
+    if (!intro) return;
+
+    let entered = false;
+    let lastTapAt = 0;
+    let introTimer = null;
+    let activeIntro = null;
+    const introDurationMs = 5080;
+    const fallbackStartDelayMs = 1800;
+    const posterHoldMs = 1000;
+    document.documentElement.classList.add('intro-lock');
+    function startMusicIfAllowed() {
+        try {
+            const music = document.getElementById('bg-music');
+            if (music && music.paused && music.dataset.userPaused !== 'true') {
+                music.volume = 0.55;
+                music.muted = false;
+                music.setAttribute('playsinline', '');
+                music.play().catch(() => {});
+            }
+            if (music && music.dataset.userPaused !== 'true' && typeof playMusic === 'function') playMusic();
+            if (music && music.dataset.userPaused !== 'true' && typeof resumeMusicOnFirstGesture === 'function') resumeMusicOnFirstGesture();
+        } catch (_) {}
+    }
+
+    function preventIntroScroll(event) {
+        if (!entered) event.preventDefault();
+    }
+
+    function showIntroMedia(media, useTimer) {
+        if (!media || entered || activeIntro) return false;
+        activeIntro = media;
+        media.classList.add('is-active');
+        intro.classList.add('video-ready');
+        if (introPoster && media !== introPoster) {
+            setTimeout(() => {
+                if (!entered) introPoster.classList.remove('is-active');
+            }, 520);
+        }
+        if (useTimer) introTimer = setTimeout(enterInvitation, introDurationMs);
+        startMusicIfAllowed();
+        return true;
+    }
+
+    function startVideoIntro() {
+        if (!showIntroMedia(introVideo, false)) return;
+        if (introVideo && introVideo.paused) {
+            introVideo.play().catch(() => {});
+        }
+    }
+
+    function startFallbackIntro() {
+        if (!introFallback || activeIntro || entered) return;
+
+        const src = introFallback.dataset.src;
+        if (!src) {
+            showIntroMedia(introFallback, true);
+            return;
+        }
+
+        if (introFallback.src.endsWith(src) && introFallback.complete) {
+            showIntroMedia(introFallback, true);
+            return;
+        }
+
+        const preloader = new Image();
+        preloader.onload = function() {
+            introFallback.src = src;
+            requestAnimationFrame(() => showIntroMedia(introFallback, true));
+        };
+        preloader.onerror = function() {
+            enterInvitation();
+        };
+        preloader.src = src;
+    }
+
+    function enterInvitation() {
+        if (entered) return;
+        entered = true;
+        startMusicIfAllowed();
+        if (introTimer) clearTimeout(introTimer);
+        if (introVideo) {
+            introVideo.pause();
+            introVideo.removeAttribute('src');
+            introVideo.load();
+        }
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        intro.classList.add('hidden');
+        document.body.classList.remove('intro-active');
+        document.documentElement.classList.remove('intro-lock');
+        window.removeEventListener('touchmove', preventIntroScroll, { capture: true });
+        window.removeEventListener('wheel', preventIntroScroll, { capture: true });
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        if (page) requestAnimationFrame(() => page.classList.add('visible'));
+        setTimeout(() => intro.remove(), 400);
+    }
+
+    function handleDoubleTap() {
+        startMusicIfAllowed();
+        const now = Date.now();
+        if (now - lastTapAt < 320) enterInvitation();
+        lastTapAt = now;
+    }
+
+    function handleIntroTouchStart() {
+        startMusicIfAllowed();
+    }
+
+    function prepareIntroVideo() {
+        startMusicIfAllowed();
+        if (!introVideo) {
+            startFallbackIntro();
+            return;
+        }
+
+        introVideo.muted = true;
+        introVideo.playsInline = true;
+        introVideo.addEventListener('ended', enterInvitation, { once: true });
+        introVideo.addEventListener('playing', startVideoIntro, { once: true });
+        introVideo.addEventListener('error', startFallbackIntro, { once: true });
+        introVideo.addEventListener('timeupdate', () => {
+            if (introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.08) {
+                enterInvitation();
+            }
+        });
+
+        introVideo.load();
+        setTimeout(() => {
+            if (entered || activeIntro) return;
+            const playAttempt = introVideo.play();
+            if (playAttempt && typeof playAttempt.then === 'function') {
+                playAttempt.then(startVideoIntro).catch(startFallbackIntro);
+            } else {
+                startVideoIntro();
+            }
+        }, posterHoldMs);
+    }
+
+    prepareIntroVideo();
+    setTimeout(startFallbackIntro, posterHoldMs + fallbackStartDelayMs);
+    window.addEventListener('touchmove', preventIntroScroll, { passive: false, capture: true });
+    window.addEventListener('wheel', preventIntroScroll, { passive: false, capture: true });
+    intro.addEventListener('dblclick', enterInvitation);
+    intro.addEventListener('touchstart', handleIntroTouchStart, { passive: true });
+    intro.addEventListener('touchend', handleDoubleTap, { passive: true });
+})();
+
+const bgMusic = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
+const fontToggle = document.getElementById('font-toggle');
+let musicStartedByUser = false;
+let musicUserPaused = false;
+let musicRetryTimer = null;
+let fontSizeLevel = 0;
+const fontSizeScales = [1, 1.2, 1.35];
+const scalableTextSelector = [
+    '.invitation-page h1',
+    '.invitation-page h2',
+    '.invitation-page h3',
+    '.invitation-page h4',
+    '.invitation-page h5',
+    '.invitation-page h6',
+    '.invitation-page div',
+    '.invitation-page p',
+    '.invitation-page li',
+    '.invitation-page span',
+    '.invitation-page strong',
+    '.invitation-page small',
+    '.invitation-page button',
+    '.invitation-page a',
+    '.invitation-page label',
+    '.invitation-page input',
+    '.invitation-page textarea',
+    '.invitation-page td',
+    '.invitation-page th',
+    '.quick-menu-panel button'
+].join(',');
+const fontScaleExcludeSelector = '#map, #map *, .map-btns, .map-btns *, .btn-calendar, .btn-calendar *';
+
+function hasDirectText(el) {
+    return Array.from(el.childNodes).some(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+}
+
+function isTextControl(el) {
+    return ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'LABEL', 'TD', 'TH'].includes(el.tagName);
+}
+
+function getScalableTextElements() {
+    const candidates = Array.from(document.querySelectorAll(scalableTextSelector))
+        .filter(el => !el.matches(fontScaleExcludeSelector))
+        .filter(el => hasDirectText(el) || isTextControl(el));
+    return candidates.filter(el => !candidates.some(parent => parent !== el && parent.contains(el)));
+}
+
+function toggleFontSize() {
+    fontSizeLevel = (fontSizeLevel + 1) % fontSizeScales.length;
+    const scale = fontSizeScales[fontSizeLevel];
+    const expanded = scale > 1;
+    document.body.classList.toggle('font-expanded', expanded);
+
+    document.querySelectorAll('[data-original-font-size]').forEach(el => {
+        el.style.fontSize = '';
+        delete el.dataset.originalFontSize;
+    });
+
+    getScalableTextElements().forEach(el => {
+        if (expanded) {
+            el.dataset.originalFontSize = getComputedStyle(el).fontSize;
+            const originalSize = parseFloat(el.dataset.originalFontSize);
+            if (originalSize) el.style.fontSize = (originalSize * scale).toFixed(2) + 'px';
+        }
+    });
+    if (fontToggle) {
+        fontToggle.classList.toggle('active', expanded);
+        fontToggle.innerHTML = expanded
+            ? 'x' + scale
+            : '<svg id="font-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>';
+        fontToggle.setAttribute('aria-label', expanded ? '글씨 크기 ' + scale + '배' : '글씨 크기 확대');
+    }
+}
+
+function updateMusicButton() {
+    if (!bgMusic || !musicToggle) return;
+    const isPlaying = !bgMusic.paused;
+    musicToggle.classList.toggle('playing', isPlaying);
+    musicToggle.setAttribute('aria-label', isPlaying ? '배경 음악 일시정지' : '배경 음악 재생');
+}
+
+function playMusic() {
+    if (!bgMusic) return Promise.resolve();
+    bgMusic.volume = 0.55;
+    bgMusic.muted = false;
+    bgMusic.dataset.userPaused = 'false';
+    bgMusic.setAttribute('playsinline', '');
+    return bgMusic.play().then(updateMusicButton).catch(() => {
+        updateMusicButton();
+    });
+}
+
+function requestMusicPlayback() {
+    if (!bgMusic || musicUserPaused || !bgMusic.paused) return;
+    playMusic();
+}
+
+function startMusicRetryWindow() {
+    if (musicRetryTimer || !bgMusic || musicUserPaused) return;
+    let attempts = 0;
+    musicRetryTimer = setInterval(() => {
+        attempts += 1;
+        if (!bgMusic || musicUserPaused || !bgMusic.paused || attempts > 20) {
+            clearInterval(musicRetryTimer);
+            musicRetryTimer = null;
+            return;
+        }
+        playMusic();
+    }, 500);
+}
+
+function toggleMusic() {
+    if (!bgMusic) return;
+    musicStartedByUser = true;
+    if (bgMusic.paused) {
+        musicUserPaused = false;
+        bgMusic.dataset.userPaused = 'false';
+        playMusic();
+    }
+    else {
+        musicUserPaused = true;
+        bgMusic.dataset.userPaused = 'true';
+        if (musicRetryTimer) {
+            clearInterval(musicRetryTimer);
+            musicRetryTimer = null;
+        }
+        bgMusic.pause();
+        updateMusicButton();
+    }
+}
+
+function resumeMusicOnFirstGesture(e) {
+    if (e && e.target && e.target.closest && e.target.closest('#music-toggle')) return;
+    if (!bgMusic || !bgMusic.paused) return;
+    musicStartedByUser = true;
+    if (musicUserPaused || bgMusic.dataset.userPaused === 'true') return;
+    musicUserPaused = false;
+    playMusic();
+}
+
+if (bgMusic) {
+    bgMusic.addEventListener('play', updateMusicButton);
+    bgMusic.addEventListener('pause', updateMusicButton);
+    bgMusic.addEventListener('canplay', () => {
+        requestMusicPlayback();
+    }, { once: true });
+    bgMusic.load();
+    requestMusicPlayback();
+    startMusicRetryWindow();
+    window.addEventListener('DOMContentLoaded', () => {
+        requestMusicPlayback();
+        startMusicRetryWindow();
+    });
+    window.addEventListener('load', requestMusicPlayback);
+    window.addEventListener('pageshow', () => {
+        requestMusicPlayback();
+        startMusicRetryWindow();
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+            requestMusicPlayback();
+            startMusicRetryWindow();
+        }
+    });
+    document.addEventListener('pointerdown', resumeMusicOnFirstGesture, { passive: true, capture: true });
+    document.addEventListener('pointerup', resumeMusicOnFirstGesture, { passive: true, capture: true });
+    document.addEventListener('touchstart', resumeMusicOnFirstGesture, { passive: true, capture: true });
+    document.addEventListener('touchend', resumeMusicOnFirstGesture, { passive: true, capture: true });
+    document.addEventListener('mousedown', resumeMusicOnFirstGesture, { passive: true, capture: true });
+    document.addEventListener('click', resumeMusicOnFirstGesture, { passive: true, capture: true });
+    document.addEventListener('wheel', resumeMusicOnFirstGesture, { passive: true, capture: true });
+    document.addEventListener('keydown', resumeMusicOnFirstGesture, { capture: true });
+}
+
+const menuToggle = document.getElementById('menu-toggle');
+const quickMenuPanel = document.getElementById('quick-menu-panel');
+
+function setQuickMenu(open) {
+    if (!menuToggle || !quickMenuPanel) return;
+    menuToggle.classList.toggle('open', open);
+    quickMenuPanel.classList.toggle('open', open);
+    quickMenuPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    menuToggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+}
+
+function toggleQuickMenu(e) {
+    if (e) e.stopPropagation();
+    if (!quickMenuPanel) return;
+    setQuickMenu(!quickMenuPanel.classList.contains('open'));
+}
+
+function scrollToSection(id) {
+    const target = document.getElementById(id);
+    setQuickMenu(false);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: id === 'share-buttons' ? 'center' : 'start' });
+}
+
+document.addEventListener('click', function(e) {
+    if (!quickMenuPanel || !quickMenuPanel.classList.contains('open')) return;
+    if (quickMenuPanel.contains(e.target) || (menuToggle && menuToggle.contains(e.target))) return;
+    setQuickMenu(false);
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') setQuickMenu(false);
+});
+
+const CONFIG = {
+    weddingDate: new Date('2026-09-06T13:00:00+09:00'),
+    venue: {
+        name: 'WI 컨벤션',
+        address: '경기 수원시 팔달구 월드컵로 310',
+    },
+    pageUrl: 'https://jihojieun.github.io/',
+    shareImageUrl: 'https://jihojieun.github.io/images/main.jpg',
+    kakaoShareImage: 'https://jihojieun.github.io/images/kakao-share-v2.jpg',
+    kakaoJsKey: '74c4f6e2d4a9001581e69536675d273c',
+    uploadServer: {
+        dev:  'http://192.168.50.113:3000',
+        prod: 'https://devrok.asuscomm.com',
+    },
+    get uploadUrl() {
+        const isProd = location.hostname.endsWith('github.io')
+                    || location.hostname.endsWith('devrok.asuscomm.com');
+        return (isProd ? this.uploadServer.prod : this.uploadServer.dev) + '/upload';
+    },
+};
+
+function updateDday() {
+    const diff = CONFIG.weddingDate - new Date();
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    const el = document.getElementById('dday-count');
+    if (!el) return;
+    if (days > 0) el.textContent = `D-${days}`;
+    else if (days === 0) el.textContent = `D-DAY`;
+    else el.textContent = `결혼식이 끝났습니다`;
+}
+updateDday();
+
+function initMap() {
+    if (typeof naver === 'undefined' || !naver.maps) {
+        document.getElementById('map').innerHTML =
+            '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#a8a8a8;font-size:12px;">지도를 불러오지 못했습니다</div>';
+        return;
+    }
+    naver.maps.Service.geocode({ query: CONFIG.venue.address }, function(status, response) {
+        if (status !== naver.maps.Service.Status.OK) return;
+        const r = response.v2.addresses[0];
+        if (!r) return;
+        const lat = parseFloat(r.y), lng = parseFloat(r.x);
+        const pos = new naver.maps.LatLng(lat, lng);
+        const map = new naver.maps.Map('map', {
+            center: pos, zoom: 16, zoomControl: true,
+            zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT }
+        });
+        new naver.maps.Marker({ position: pos, map: map, title: CONFIG.venue.name });
+        new naver.maps.InfoWindow({
+            content: `<div style="padding:8px 12px;font-family:'Pretendard',sans-serif;font-size:12px;text-align:center;"><strong>${CONFIG.venue.name}</strong><br><span style="color:#888;font-size:11px;">${CONFIG.venue.address}</span></div>`
+        }).open(map, pos);
+        setupMapLinks(lat, lng);
+    });
+}
+function setupMapLinks(lat, lng) {
+    const name = encodeURIComponent(CONFIG.venue.name);
+    const addr = encodeURIComponent(CONFIG.venue.address);
+    document.getElementById('naver-link').href = `https://map.naver.com/v5/search/${addr}`;
+    document.getElementById('kakao-link').href = `https://map.kakao.com/link/search/${addr}`;
+    document.getElementById('tmap-link').href = `tmap://route?goalname=${name}&goalx=${lng}&goaly=${lat}`;
+}
+window.addEventListener('load', initMap);
+window.addEventListener('load', function() {
+    if (typeof naver === 'undefined') {
+        const addr = encodeURIComponent(CONFIG.venue.address);
+        document.getElementById('naver-link').href = `https://map.naver.com/v5/search/${addr}`;
+        document.getElementById('kakao-link').href = `https://map.kakao.com/link/search/${addr}`;
+        document.getElementById('tmap-link').href = `https://map.kakao.com/link/search/${addr}`;
+    }
+});
+
+function toggleAccount(btn) {
+    btn.classList.toggle('open');
+    btn.nextElementSibling.classList.toggle('open');
+}
+
+function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => showToast('복사되었습니다'))
+        .catch(() => {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast('복사되었습니다');
+        });
+}
+function copyURL() {
+    navigator.clipboard.writeText(CONFIG.pageUrl).then(() => showToast('URL이 복사되었습니다'));
+}
+function shareMore() {
+    const shareData = {
+        title: '지호 ♥ 지은 결혼합니다.',
+        url: CONFIG.pageUrl,
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData).catch(err => {
+            if (err && err.name === 'AbortError') return;
+            copyURL();
+        });
+        return;
+    }
+
+    copyURL();
+}
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function shareKakao() {
+    if (typeof Kakao === 'undefined') {
+        showToast('카카오 SDK 로드 실패');
+        console.error('[Kakao] SDK가 로드되지 않았습니다');
+        copyURL();
+        return;
+    }
+
+    if (CONFIG.kakaoJsKey === 'YOUR_KAKAO_JS_KEY' || !CONFIG.kakaoJsKey) {
+        showToast('카카오 키 미설정');
+        console.error('[Kakao] kakaoJsKey가 설정되지 않았습니다');
+        copyURL();
+        return;
+    }
+
+    if (!Kakao.isInitialized()) {
+        try {
+            Kakao.init(CONFIG.kakaoJsKey);
+            console.log('[Kakao] 초기화 완료');
+        } catch (e) {
+            showToast('카카오 초기화 실패');
+            console.error('[Kakao] init 에러:', e);
+            copyURL();
+            return;
+        }
+    }
+
+    const mapUrl = CONFIG.pageUrl + '?go=map';
+
+    try {
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '지호 ♥ 지은 결혼합니다.',
+                description: '2026년 9월 6일 일요일 오후 1시\n' + CONFIG.venue.name + ' W홀',
+                imageUrl: CONFIG.kakaoShareImage,
+                link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl },
+            },
+            buttons: [
+                { title: '청첩장 보기', link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl } },
+                { title: '위치 보기', link: { mobileWebUrl: mapUrl, webUrl: mapUrl } },
+            ],
+        });
+        console.log('[Kakao] sendDefault 호출 완료');
+    } catch (e) {
+        showToast('공유 실패: ' + e.message);
+        console.error('[Kakao] sendDefault 에러:', e);
+        copyURL();
+    }
+}
+
+const galleryImages = [
+    'images/g1.jpeg', 'images/g2.jpeg', 'images/g3.jpeg',
+    'images/g4.jpeg', 'images/g5.jpeg', 'images/g6.jpeg',
+    'images/g7.jpeg', 'images/g8.jpeg', 'images/g9.jpeg',
+    'images/g10.jpeg', 'images/g11.jpeg', 'images/g12.jpeg',
+    'images/g13.jpeg', 'images/g14.jpeg', 'images/g15.jpeg',
+    'images/g16.jpeg', 'images/g17.jpeg', 'images/g18.jpeg'
+];
+let currentIdx = 0;
+function openLightbox(i) {
+    currentIdx = i;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+}
+function updateLightbox() {
+    document.getElementById('lightbox-img').src = galleryImages[currentIdx];
+    document.getElementById('lightbox-counter').textContent = `${currentIdx + 1} / ${galleryImages.length}`;
+}
+function prevImage(e) {
+    if (e) e.stopPropagation();
+    currentIdx = (currentIdx - 1 + galleryImages.length) % galleryImages.length;
+    updateLightbox();
+}
+function nextImage(e) {
+    if (e) e.stopPropagation();
+    currentIdx = (currentIdx + 1) % galleryImages.length;
+    updateLightbox();
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+});
+document.getElementById('lightbox-img').addEventListener('click', e => e.stopPropagation());
+document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') prevImage();
+    else if (e.key === 'ArrowRight') nextImage();
+});
+let touchSX = 0, touchSY = 0;
+const lbEl = document.getElementById('lightbox');
+lbEl.addEventListener('touchstart', e => {
+    touchSX = e.changedTouches[0].screenX;
+    touchSY = e.changedTouches[0].screenY;
+}, { passive: true });
+lbEl.addEventListener('touchend', e => {
+    const dx = touchSX - e.changedTouches[0].screenX;
+    const dy = touchSY - e.changedTouches[0].screenY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+        if (dx > 0) nextImage(); else prevImage();
+    }
+}, { passive: true });
+
+function addToCalendar() {
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    const isAndroid = /android/i.test(ua);
+
+    const start = CONFIG.weddingDate;
+    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    const title = '지호 ♥ 지은 결혼식';
+    const location = CONFIG.venue.name + ', ' + CONFIG.venue.address;
+    const description = '지호와 지은의 결혼식에 초대합니다. ' + CONFIG.pageUrl;
+    const fmtUTC = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+    if (isAndroid) {
+        const fallbackUrl = new URL('wedding.ics', CONFIG.pageUrl).href;
+        const intentUrl = 'intent://insert#Intent'
+            + ';action=android.intent.action.INSERT'
+            + ';type=vnd.android.cursor.item/event'
+            + ';S.title=' + encodeURIComponent(title)
+            + ';S.eventLocation=' + encodeURIComponent(location)
+            + ';S.description=' + encodeURIComponent(description)
+            + ';S.android.intent.extra.TIMEZONE=Asia%2FSeoul'
+            + ';l.beginTime=' + start.getTime()
+            + ';l.endTime=' + end.getTime()
+            + ';S.browser_fallback_url=' + encodeURIComponent(fallbackUrl)
+            + ';end';
+        window.location.href = intentUrl;
+        return;
+    }
+
+    if (isIOS) {
+        window.location.href = 'wedding.ics';
+        return;
+    }
+
+    const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Wedding//KR',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'UID:wedding-jiho-jieun-' + start.getTime() + '@jihojieun.github.io',
+        'DTSTAMP:' + fmtUTC(new Date()),
+        'DTSTART:' + fmtUTC(start),
+        'DTEND:'   + fmtUTC(end),
+        'SUMMARY:' + title,
+        'LOCATION:' + location,
+        'DESCRIPTION:' + description,
+        'BEGIN:VALARM',
+        'TRIGGER:-P1D',
+        'ACTION:DISPLAY',
+        'DESCRIPTION:내일 지호 ♥ 지은 결혼식이 있습니다',
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
+    ].join('\r\n');
+
+    const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'wedding-jiho-jieun.ics';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    showToast('캘린더 파일을 다운로드했습니다');
+}
+
+let selectedFiles = [];
+const MAX_FILES = 100;
+const MAX_SIZE_IMAGE = 500 * 1024 * 1024;
+const MAX_SIZE_VIDEO = 2 * 1024 * 1024 * 1024;
+
+const fileInput   = document.getElementById('photo-input');
+const fileLabel   = document.getElementById('file-label');
+const fileLabelMain = document.getElementById('file-label-main');
+const filePreview = document.getElementById('file-preview');
+const uploadBtn   = document.getElementById('upload-btn');
+const guestNameEl = document.getElementById('guest-name');
+const progressBox = document.getElementById('upload-progress');
+const progressFill = document.getElementById('progress-fill');
+const progressPct = document.getElementById('progress-pct');
+const progressLabel = document.getElementById('progress-label');
+const resultBox   = document.getElementById('upload-result');
+
+function formatSize(bytes) {
+    if (bytes >= 1024 * 1024 * 1024) return (bytes / 1024 / 1024 / 1024).toFixed(1) + 'GB';
+    if (bytes >= 1024 * 1024) return Math.round(bytes / 1024 / 1024) + 'MB';
+    return Math.round(bytes / 1024) + 'KB';
+}
+
+function formatDuration(sec) {
+    if (!isFinite(sec) || sec <= 0) return '';
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+fileInput.addEventListener('change', function(e) {
+    const incoming = Array.from(e.target.files || []);
+    let overImage = 0, overVideo = 0, overCount = 0, wrongType = 0;
+
+    incoming.forEach(f => {
+        if (selectedFiles.length >= MAX_FILES) { overCount++; return; }
+        const isImage = f.type.startsWith('image/');
+        const isVideo = f.type.startsWith('video/');
+        if (!isImage && !isVideo) { wrongType++; return; }
+        if (isImage && f.size > MAX_SIZE_IMAGE) { overImage++; return; }
+        if (isVideo && f.size > MAX_SIZE_VIDEO) { overVideo++; return; }
+        selectedFiles.push(f);
+    });
+
+    if (overCount)        showToast(`최대 ${MAX_FILES}개까지만 업로드 가능합니다`);
+    else if (overImage)   showToast(`사진 ${overImage}개가 500MB를 초과해 제외되었습니다`);
+    else if (overVideo)   showToast(`영상 ${overVideo}개가 2GB를 초과해 제외되었습니다`);
+    else if (wrongType)   showToast(`사진/영상 파일만 업로드 가능합니다`);
+
+    fileInput.value = '';
+    renderPreview();
+});
+
+function renderPreview() {
+    filePreview.innerHTML = '';
+    selectedFiles.forEach((file, idx) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'thumb';
+
+        const isVideo = file.type.startsWith('video/');
+
+        if (isVideo) {
+            thumb.classList.add('is-video');
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(file);
+            video.preload = 'metadata';
+            video.muted = true;
+            video.playsInline = true;
+            video.addEventListener('loadedmetadata', () => {
+                try { video.currentTime = 0.1; } catch (_) {}
+                if (isFinite(video.duration)) {
+                    const dur = document.createElement('span');
+                    dur.className = 'duration';
+                    dur.textContent = formatDuration(video.duration);
+                    thumb.appendChild(dur);
+                }
+            }, { once: true });
+            thumb.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.onload = () => URL.revokeObjectURL(img.src);
+            thumb.appendChild(img);
+        }
+
+        const rm = document.createElement('span');
+        rm.className = 'remove';
+        rm.textContent = '✕';
+        rm.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            selectedFiles.splice(idx, 1);
+            renderPreview();
+        };
+        thumb.appendChild(rm);
+        filePreview.appendChild(thumb);
+    });
+
+    const n = selectedFiles.length;
+    const photos = selectedFiles.filter(f => f.type.startsWith('image/')).length;
+    const videos = selectedFiles.filter(f => f.type.startsWith('video/')).length;
+    const totalSize = selectedFiles.reduce((s, f) => s + f.size, 0);
+
+    if (n > 0) {
+        fileLabel.classList.add('has-files');
+        let label = '';
+        if (photos && videos) label = `사진 ${photos}장 · 영상 ${videos}개`;
+        else if (videos)      label = `영상 ${videos}개`;
+        else                  label = `사진 ${photos}장`;
+        fileLabelMain.textContent = `${label} · 총 ${formatSize(totalSize)} · 더 추가하려면 탭`;
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = '보내기';
+    } else {
+        fileLabel.classList.remove('has-files');
+        fileLabelMain.textContent = '사진 또는 동영상을 선택해 주세요';
+        uploadBtn.disabled = true;
+        uploadBtn.textContent = '보내기';
+    }
+}
+
+function uploadPhotos() {
+    const name = guestNameEl.value.trim();
+    if (!name) {
+        showToast('성함을 입력해 주세요');
+        guestNameEl.focus();
+        return;
+    }
+    if (selectedFiles.length === 0) {
+        showToast('사진을 선택해 주세요');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('guestName', name);
+    selectedFiles.forEach(f => formData.append('photos', f, f.name));
+
+    const targetUrl = CONFIG.uploadUrl;
+    console.log('[UPLOAD] 대상 URL:', targetUrl);
+    console.log('[UPLOAD] 파일 수:', selectedFiles.length);
+    console.log('[UPLOAD] 페이지 origin:', location.origin || '(file://)');
+
+    resultBox.className = 'upload-result';
+    resultBox.textContent = '';
+    progressBox.classList.add('active');
+    progressFill.style.width = '0%';
+    progressPct.textContent = '0%';
+    progressLabel.textContent = '업로드 중입니다';
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = '전송 중…';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', targetUrl);
+    xhr.timeout = 30 * 60 * 1000;
+
+    xhr.upload.addEventListener('progress', function(e) {
+        if (!e.lengthComputable) return;
+        const pct = Math.round((e.loaded / e.total) * 100);
+        progressFill.style.width = pct + '%';
+        progressPct.textContent = pct + '%';
+        if (pct >= 100) progressLabel.textContent = '서버에서 처리 중입니다';
+    });
+
+    xhr.onload = function() {
+        console.log('[UPLOAD] 응답 상태:', xhr.status, xhr.statusText);
+        console.log('[UPLOAD] 응답 본문:', xhr.responseText);
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+            let count = selectedFiles.length;
+            try {
+                const data = JSON.parse(xhr.responseText);
+                if (data && typeof data.count === 'number') count = data.count;
+            } catch (_) {}
+
+            resultBox.className = 'upload-result success';
+            resultBox.innerHTML = `<strong>${count}개</strong>의 파일이 전달되었습니다.<br>소중한 마음 감사합니다 ♥`;
+            selectedFiles = [];
+            renderPreview();
+            guestNameEl.value = '';
+            progressBox.classList.remove('active');
+        } else {
+            handleUploadError(`업로드 실패 (${xhr.status})`, targetUrl);
+        }
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = '보내기';
+        if (selectedFiles.length === 0) uploadBtn.disabled = true;
+    };
+
+    xhr.onerror = function() {
+        console.error('[UPLOAD] 네트워크 오류:', xhr.status || '연결 실패');
+        handleUploadError('네트워크 오류로 업로드에 실패했습니다', targetUrl);
+    };
+    xhr.ontimeout = () => handleUploadError('시간 초과로 업로드에 실패했습니다', targetUrl);
+    xhr.onabort   = () => handleUploadError('업로드가 취소되었습니다', targetUrl);
+
+    xhr.send(formData);
+}
+
+function handleUploadError(msg, url) {
+    progressBox.classList.remove('active');
+    resultBox.className = 'upload-result error';
+    const isLocal = !location.hostname || location.hostname === 'localhost' || location.hostname.startsWith('192.168.') || location.hostname === '127.0.0.1';
+    const debugLine = (isLocal && url) ? `<br><span style="font-size:10px;color:var(--mute);word-break:break-all;">→ ${url}</span>` : '';
+    resultBox.innerHTML = `${msg}<br><span style="font-size:11px;color:var(--mute);">잠시 후 다시 시도해 주세요</span>${debugLine}`;
+    uploadBtn.disabled = selectedFiles.length === 0;
+    uploadBtn.textContent = '보내기';
+}
+
+
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+window.navermap_authFailure = function() {
+    document.getElementById('map').innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#a8a8a8;font-size:12px;text-align:center;padding:20px;">네이버 지도 인증 실패<br>Web 서비스 URL 등록 확인</div>';
+};
+</script>
+
+</body>
+</html>
