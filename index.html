@@ -1053,6 +1053,20 @@ table.cal td.wed span {
 <div class="toast" id="toast"></div>
 
 <script>
+/* =========================================================
+   카카오톡 공유 "위치 보기" 버튼 리다이렉트 핸들러
+   - 카카오 정책상 등록 도메인이 아닌 URL은 직접 못 가서 우회
+   - ?go=map 파라미터로 들어오면 즉시 지도로 리다이렉트
+   ========================================================= */
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('go') === 'map') {
+        const address = encodeURIComponent('경기 수원시 팔달구 월드컵로 310');
+        // 카카오맵으로 이동 (카카오톡 인앱 브라우저와 호환성 ↑)
+        window.location.replace('https://map.kakao.com/link/search/' + address);
+    }
+})();
+
 const CONFIG = {
     weddingDate: new Date('2026-09-06T13:00:00+09:00'),
     venue: {
@@ -1178,8 +1192,9 @@ function shareKakao() {
     }
 
     // 4단계: 공유 호출
-    // 위치 보기 버튼은 카카오맵 URL 사용 (카톡 인앱 브라우저 호환성 ↑)
-    const mapUrl = 'https://map.kakao.com/link/search/' + encodeURIComponent(CONFIG.venue.address);
+    // 위치 보기 버튼은 본인 도메인으로 가서 → JS가 카카오맵으로 리다이렉트
+    // (카카오 정책: 외부 도메인 직접 링크 시 등록 도메인으로 리다이렉트되는 문제 우회)
+    const mapUrl = CONFIG.pageUrl + '?go=map';
 
     try {
         Kakao.Share.sendDefault({
