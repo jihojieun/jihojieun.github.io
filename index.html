@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="지호 ♥ 지은 결혼합니다">
 <meta property="og:description" content="2026년 9월 6일 일요일 오후 1시 · WI 컨벤션">
-<meta property="og:image" content="https://jihojieun.github.io/images/main.jpeg">
+<meta property="og:image" content="https://jihojieun.github.io/images/main.jpg">
 <meta property="og:url" content="https://jihojieun.github.io/">
 
 <!-- 폰트: Pretendard(모던 한글 산세리프) + Italiana/Cormorant(우아한 영문) -->
@@ -134,7 +134,7 @@ section {
 .cover-photo {
     width: 100%;
     aspect-ratio: 4 / 5;
-    background: url('images/main.jpeg') center/cover no-repeat,
+    background: url('images/main.jpg') center/cover no-repeat,
                 linear-gradient(180deg, #d8cfbe 0%, #b8a98d 100%);
     position: relative;
 }
@@ -876,11 +876,11 @@ table.cal td.wed span {
     </div>
 
     <div class="gallery-grid">
-        <div class="item" onclick="openLightbox(0)"><img src="images/g1.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4c5b0,#9c8a6e)';this.style.display='none'"></div>
-        <div class="item" onclick="openLightbox(1)"><img src="images/g2.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8ddc8,#c4ad88)';this.style.display='none'"></div>
-        <div class="item" onclick="openLightbox(2)"><img src="images/g3.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b89e7f,#8a7156)';this.style.display='none'"></div>
-        <div class="item" onclick="openLightbox(3)"><img src="images/g4.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#cdb89c,#a08a6c)';this.style.display='none'"></div>
-        <div class="item" onclick="openLightbox(4)"><img src="images/g5.jpeg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#d4c5b0)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(0)"><img src="images/g1.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4c5b0,#9c8a6e)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(1)"><img src="images/g2.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8ddc8,#c4ad88)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(2)"><img src="images/g3.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b89e7f,#8a7156)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(3)"><img src="images/g4.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#cdb89c,#a08a6c)';this.style.display='none'"></div>
+        <div class="item" onclick="openLightbox(4)"><img src="images/g5.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#d4c5b0)';this.style.display='none'"></div>
     </div>
 </section>
 
@@ -892,7 +892,7 @@ table.cal td.wed span {
     <div class="couple">
         <div class="person">
             <div class="person-photo">
-                <img src="images/groom.jpeg" alt="신랑" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#6e5d44)';this.style.display='none'">
+                <img src="images/groom.jpg" alt="신랑" onerror="this.parentNode.style.background='linear-gradient(135deg,#9c8a6e,#6e5d44)';this.style.display='none'">
             </div>
             <div class="person-role">GROOM</div>
             <div class="person-name">지 호</div>
@@ -913,7 +913,7 @@ table.cal td.wed span {
 
         <div class="person">
             <div class="person-photo">
-                <img src="images/bride.jpeg" alt="신부" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#b88a85)';this.style.display='none'">
+                <img src="images/bride.jpg" alt="신부" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#b88a85)';this.style.display='none'">
             </div>
             <div class="person-role">BRIDE</div>
             <div class="person-name">지 은</div>
@@ -1060,7 +1060,7 @@ const CONFIG = {
         address: '경기 수원시 팔달구 월드컵로 310',
     },
     pageUrl: 'https://jihojieun.github.io/',
-    shareImageUrl: 'https://jihojieun.github.io/images/main.jpeg',
+    shareImageUrl: 'https://jihojieun.github.io/images/main.jpg',
     kakaoJsKey: 'bd64256271e445086a5afb1ca4fb7b4b',
 };
 
@@ -1148,30 +1148,62 @@ function showToast(msg) {
 
 /* 카카오톡 공유 */
 function shareKakao() {
-    if (typeof Kakao === 'undefined' || CONFIG.kakaoJsKey === 'YOUR_KAKAO_JS_KEY') {
+    // 1단계: SDK 로드 확인
+    if (typeof Kakao === 'undefined') {
+        showToast('카카오 SDK 로드 실패');
+        console.error('[Kakao] SDK가 로드되지 않았습니다');
         copyURL();
-        showToast('URL을 복사했습니다');
         return;
     }
-    if (!Kakao.isInitialized()) Kakao.init(CONFIG.kakaoJsKey);
+
+    // 2단계: 키 미설정 확인
+    if (CONFIG.kakaoJsKey === 'YOUR_KAKAO_JS_KEY' || !CONFIG.kakaoJsKey) {
+        showToast('카카오 키 미설정');
+        console.error('[Kakao] kakaoJsKey가 설정되지 않았습니다');
+        copyURL();
+        return;
+    }
+
+    // 3단계: SDK 초기화
+    if (!Kakao.isInitialized()) {
+        try {
+            Kakao.init(CONFIG.kakaoJsKey);
+            console.log('[Kakao] 초기화 완료');
+        } catch (e) {
+            showToast('카카오 초기화 실패');
+            console.error('[Kakao] init 에러:', e);
+            copyURL();
+            return;
+        }
+    }
+
+    // 4단계: 공유 호출
     const naverMap = 'https://map.naver.com/v5/search/' + encodeURIComponent(CONFIG.venue.address);
-    Kakao.Share.sendDefault({
-        objectType: 'feed',
-        content: {
-            title: '지호 ♥ 지은 결혼합니다',
-            description: '2026년 9월 6일 일요일 오후 1시\n' + CONFIG.venue.name,
-            imageUrl: CONFIG.shareImageUrl,
-            link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl },
-        },
-        buttons: [
-            { title: '청첩장 보기', link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl } },
-            { title: '위치 보기', link: { mobileWebUrl: naverMap, webUrl: naverMap } },
-        ],
-    });
+
+    try {
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '지호 ♥ 지은 결혼합니다',
+                description: '2026년 9월 6일 일요일 오후 1시\n' + CONFIG.venue.name,
+                imageUrl: CONFIG.shareImageUrl,
+                link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl },
+            },
+            buttons: [
+                { title: '청첩장 보기', link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl } },
+                { title: '위치 보기', link: { mobileWebUrl: naverMap, webUrl: naverMap } },
+            ],
+        });
+        console.log('[Kakao] sendDefault 호출 완료');
+    } catch (e) {
+        showToast('공유 실패: ' + e.message);
+        console.error('[Kakao] sendDefault 에러:', e);
+        copyURL();
+    }
 }
 
 /* 라이트박스 */
-const galleryImages = ['images/g1.jpeg', 'images/g2.jpeg', 'images/g3.jpeg', 'images/g4.jpeg', 'images/g5.jpeg'];
+const galleryImages = ['images/g1.jpg', 'images/g2.jpg', 'images/g3.jpg', 'images/g4.jpg', 'images/g5.jpg'];
 let currentIdx = 0;
 function openLightbox(i) {
     currentIdx = i;
