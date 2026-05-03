@@ -735,7 +735,7 @@ section {
     <div class="map-btns">
         <a href="#" id="naver-link" target="_blank">네이버지도</a>
         <a href="#" id="kakao-link" target="_blank">카카오맵</a>
-        <a href="#" id="tmap-link" target="_blank">티맵</a>
+        <a href="#" id="tmap-link">티맵</a>
     </div>
 
     <!-- [수정] 교통편 안내 - 실제 정보로 변경하세요 -->
@@ -913,12 +913,17 @@ function setupMapLinks(lat, lng) {
     const name = encodeURIComponent(CONFIG.venue.name);
     const addr = encodeURIComponent(CONFIG.venue.address);
 
+    // 네이버지도 - 웹/앱 모두 동작
     document.getElementById('naver-link').href =
         `https://map.naver.com/v5/search/${addr}`;
+
+    // 카카오맵 - 웹/앱 모두 동작
     document.getElementById('kakao-link').href =
         `https://map.kakao.com/link/search/${addr}`;
+
+    // 티맵 - 모바일 앱 URL scheme (앱 설치 시 자동으로 열림)
     document.getElementById('tmap-link').href =
-        `https://apis.openapi.sk.com/tmap/app/routes?appKey=&name=${name}&lon=${lng}&lat=${lat}`;
+        `tmap://route?goalname=${name}&goalx=${lng}&goaly=${lat}`;
 }
 
 window.addEventListener('load', initMap);
@@ -928,7 +933,8 @@ window.addEventListener('load', function() {
         const addr = encodeURIComponent(CONFIG.venue.address);
         document.getElementById('naver-link').href = `https://map.naver.com/v5/search/${addr}`;
         document.getElementById('kakao-link').href = `https://map.kakao.com/link/search/${addr}`;
-        document.getElementById('tmap-link').href = `https://map.naver.com/v5/search/${addr}`;
+        // 좌표를 알 수 없는 fallback 상황 → 카카오맵 검색으로 대체
+        document.getElementById('tmap-link').href = `https://map.kakao.com/link/search/${addr}`;
     }
 });
 
