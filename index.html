@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- ============================================================
+     [수정] 카카오톡/링크 공유 시 보이는 정보
+     ============================================================ -->
+<title>민준 ♥ 서연 결혼합니다</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="민준 ♥ 서연 결혼합니다">
+<meta property="og:description" content="2026년 6월 20일 토요일 오후 2시">
+<meta property="og:image" content="images/main.jpg">
+
+<!-- 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     [수정] 네이버 지도 API - YOUR_CLIENT_ID 부분만 본인 키로 교체
+     발급 방법: https://www.ncloud.com → Maps → Application 등록
+     ============================================================ -->
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=ypx3ild11c&submodules=geocoder"></script>
+
+<style>
+:root {
+    --bg: #faf7f2;
+    --paper: #ffffff;
+    --ink: #2a2a2a;
+    --muted: #888180;
+    --accent: #b08968;
+    --line: #e8e1d6;
+    --rose: #d4a5a0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+    background: #ddd5c8;
+    color: var(--ink);
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--bg);
+    box-shadow: 0 0 60px rgba(0,0,0,0.08);
+    overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ===== 공통 섹션 ===== */
+section {
+    padding: 80px 32px;
+    text-align: center;
+    position: relative;
+}
+
+.label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.section-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: 0.15em;
+    margin-bottom: 50px;
+    color: var(--ink);
+}
+
+.divider {
+    width: 1px;
+    height: 50px;
+    background: var(--line);
+    margin: 0 auto;
+}
+
+/* ===== 1. 커버 ===== */
+.cover {
+    height: 100vh;
+    min-height: 680px;
+    padding: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4) 100%),
+                url('images/main.jpg') center/cover no-repeat,
+                linear-gradient(135deg, #d4a5a0 0%, #b08968 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 32px 50px;
+}
+
+.cover-top {
+    text-align: center;
+    animation: fadeDown 1.4s ease-out;
+}
+
+.cover-top .save-the-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    letter-spacing: 0.4em;
+    opacity: 0.95;
+    margin-bottom: 8px;
+}
+
+.cover-top .we-are-getting-married {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    opacity: 0.85;
+}
+
+.cover-bottom {
+    text-align: center;
+    animation: fadeUp 1.4s ease-out 0.3s both;
+}
+
+.cover-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 44px;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    margin-bottom: 24px;
+}
+
+.cover-names .amp {
+    font-style: italic;
+    font-size: 38px;
+    margin: 0 6px;
+    opacity: 0.85;
+}
+
+.cover-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    opacity: 0.7;
+    animation: bob 2s ease-in-out infinite;
+}
+
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+/* ===== 2. 인사말 ===== */
+.greeting p {
+    font-size: 15px;
+    line-height: 2.2;
+    color: #4a4644;
+    margin-bottom: 30px;
+    white-space: pre-line;
+}
+
+.greeting .signature {
+    margin-top: 50px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 2;
+}
+
+.greeting .signature strong {
+    color: var(--ink);
+    font-weight: 500;
+}
+
+/* ===== 3. 캘린더 ===== */
+.calendar-wrap {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 32px 20px;
+    margin-top: 30px;
+}
+
+.calendar-month {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+    color: var(--accent);
+}
+
+.calendar-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.calendar th, .calendar td {
+    padding: 8px 0;
+    font-size: 13px;
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+}
+
+.calendar th {
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+}
+
+.calendar td.sun { color: var(--rose); }
+.calendar td.empty { color: transparent; }
+
+.calendar td.wedding {
+    position: relative;
+    color: #fff;
+    font-weight: 600;
+}
+
+.calendar td.wedding::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28px; height: 28px;
+    background: var(--accent);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.calendar td.wedding span {
+    position: relative;
+    z-index: 1;
+}
+
+.dday {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+}
+
+.dday strong {
+    color: var(--accent);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 0.15em;
+}
+
+/* ===== 4. 갤러리 ===== */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.gallery-grid .item {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--line);
+    cursor: pointer;
+}
+
+.gallery-grid .item:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 4 / 3;
+}
+
+.gallery-grid img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.gallery-grid .item:hover img { transform: scale(1.05); }
+
+/* ===== 5. 신랑신부 ===== */
+.couple {
+    display: grid;
+    gap: 50px;
+}
+
+.person {
+    text-align: center;
+}
+
+.person-photo {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+}
+
+.person-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.person-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+.person-name {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 24px;
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+}
+
+.person-parents {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.person-parents strong {
+    color: var(--ink);
+    font-weight: 400;
+    margin: 0 4px;
+}
+
+.contact-btns {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.contact-btns a {
+    width: 36px; height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.contact-btns a:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* ===== 6. 오시는 길 ===== */
+.venue-info {
+    margin-bottom: 24px;
+    line-height: 2;
+}
+
+.venue-info .name {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.venue-info .addr {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.venue-info .floor {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+#map {
+    width: 100%;
+    height: 300px;
+    border: 1px solid var(--line);
+    background: var(--line);
+    margin-bottom: 16px;
+}
+
+.map-btns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 30px;
+}
+
+.map-btns a {
+    padding: 12px 4px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+}
+
+.map-btns a:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.transport {
+    text-align: left;
+    background: var(--paper);
+    padding: 24px;
+    border: 1px solid var(--line);
+    font-size: 13px;
+    line-height: 2;
+}
+
+.transport h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 8px;
+    margin-top: 16px;
+    font-weight: 400;
+}
+
+.transport h4:first-child { margin-top: 0; }
+.transport p { color: #4a4644; }
+
+/* ===== 7. 마음 전하실 곳 ===== */
+.account-toggle {
+    width: 100%;
+    padding: 18px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.account-toggle:hover { background: #faf5ee; }
+
+.account-toggle .arrow {
+    font-family: 'Cormorant Garamond', serif;
+    transition: transform 0.3s;
+}
+
+.account-toggle.open .arrow { transform: rotate(180deg); }
+
+.account-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    margin-bottom: 8px;
+}
+
+.account-list.open { max-height: 500px; }
+
+.account-item {
+    background: #f5f0e8;
+    padding: 18px 20px;
+    border-left: 2px solid var(--accent);
+    text-align: left;
+    font-size: 13px;
+    line-height: 2;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.account-item .info { flex: 1; min-width: 200px; }
+.account-item .label-small { color: var(--muted); font-size: 12px; }
+.account-item .number { color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+
+.copy-btn {
+    padding: 6px 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+/* ===== 8. 푸터 ===== */
+.share {
+    background: var(--paper);
+    padding: 60px 32px 80px;
+    text-align: center;
+    border-top: 1px solid var(--line);
+}
+
+.share-btns {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.share-btns button {
+    padding: 12px 20px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+}
+
+.share-btns button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.footer-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 50px;
+    line-height: 2;
+}
+
+/* 토스트 */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(42,42,42,0.95);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    z-index: 9999;
+    transition: transform 0.3s ease;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* 스크롤 진입 애니메이션 */
+.fade-in { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ====================== 1. 커버 ====================== -->
+<!-- [수정] 신랑신부 영문/한글 이름, 날짜 -->
+<section class="cover">
+    <div class="cover-top">
+        <div class="save-the-date">SAVE THE DATE</div>
+        <div class="we-are-getting-married">WE ARE GETTING MARRIED</div>
+    </div>
+    <div class="cover-bottom">
+        <div class="cover-names">
+            Minjun<br>
+            <span class="amp">&</span><br>
+            Seoyeon
+        </div>
+        <div class="cover-date">2026 . 06 . 20 . SAT</div>
+    </div>
+    <div class="scroll-hint">SCROLL ↓</div>
+</section>
+
+<!-- ====================== 2. 인사말 ====================== -->
+<section class="greeting fade-in">
+    <div class="label">Invitation</div>
+    <h2 class="section-title">초대합니다</h2>
+
+    <p>서로가 마주보며 다져온 사랑을
+이제 함께 한 곳을 바라보며
+걸어갈 수 있는 큰 사랑으로
+키우고자 합니다.
+
+저희 두 사람이 사랑의 이름으로
+지켜나갈 수 있게 앞날을
+축복해 주시면 감사하겠습니다.</p>
+
+    <div class="divider"></div>
+
+    <div class="signature">
+        <p><strong>김철수 · 이영자</strong>의 장남 <strong>민준</strong></p>
+        <p><strong>박정훈 · 최미경</strong>의 장녀 <strong>서연</strong></p>
+    </div>
+</section>
+
+<!-- ====================== 3. 캘린더 / D-Day ====================== -->
+<section class="fade-in" style="background: var(--bg);">
+    <div class="label">The Wedding Day</div>
+    <h2 class="section-title">2026년 6월 20일 토요일 오후 2시</h2>
+
+    <div class="calendar-wrap">
+        <div class="calendar-month">JUNE</div>
+        <div class="calendar-year">2026</div>
+        <table class="calendar">
+            <thead>
+                <tr><th class="sun">SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td>6</td></tr>
+                <tr><td class="sun">7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+                <tr><td class="sun">14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td class="wedding"><span>20</span></td></tr>
+                <tr><td class="sun">21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
+                <tr><td class="sun">28</td><td>29</td><td>30</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td></tr>
+            </tbody>
+        </table>
+        <div class="dday">
+            민준 ♥ 서연의 결혼식이 <strong id="dday-count">D-000</strong> 남았습니다
+        </div>
+    </div>
+</section>
+
+<!-- ====================== 4. 갤러리 ====================== -->
+<section class="fade-in">
+    <div class="label">Gallery</div>
+    <h2 class="section-title">우리의 순간</h2>
+
+    <div class="gallery-grid">
+        <!-- [수정] images 폴더에 사진 6장 넣고 파일명 맞추기 -->
+        <div class="item"><img src="images/g1.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#b08968)';this.style.display='none'"></div>
+        <div class="item"><img src="images/g2.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8d5c4,#d4a5a0)';this.style.display='none'"></div>
+        <div class="item"><img src="images/g3.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b08968,#8b6f4e)';this.style.display='none'"></div>
+        <div class="item"><img src="images/g4.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#e8d5c4)';this.style.display='none'"></div>
+        <div class="item"><img src="images/g5.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#8b6f4e,#d4a5a0)';this.style.display='none'"></div>
+    </div>
+</section>
+
+<!-- ====================== 5. 신랑신부 소개 ====================== -->
+<section class="fade-in" style="background: var(--bg);">
+    <div class="label">The Couple</div>
+    <h2 class="section-title">신랑 · 신부</h2>
+
+    <div class="couple">
+        <!-- 신랑 -->
+        <div class="person">
+            <div class="person-photo">
+                <img src="images/groom.jpg" alt="신랑" onerror="this.parentNode.style.background='linear-gradient(135deg,#b08968,#8b6f4e)';this.style.display='none'">
+            </div>
+            <div class="person-role">GROOM</div>
+            <div class="person-name">김 민 준</div>
+            <div class="person-parents">
+                <strong>김철수</strong> · <strong>이영자</strong>의 장남
+            </div>
+            <div class="contact-btns">
+                <a href="tel:01012345678" title="전화">📞</a>
+                <a href="sms:01012345678" title="문자">💬</a>
+            </div>
+        </div>
+
+        <!-- 신부 -->
+        <div class="person">
+            <div class="person-photo">
+                <img src="images/bride.jpg" alt="신부" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#e8c5be)';this.style.display='none'">
+            </div>
+            <div class="person-role">BRIDE</div>
+            <div class="person-name">박 서 연</div>
+            <div class="person-parents">
+                <strong>박정훈</strong> · <strong>최미경</strong>의 장녀
+            </div>
+            <div class="contact-btns">
+                <a href="tel:01087654321" title="전화">📞</a>
+                <a href="sms:01087654321" title="문자">💬</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====================== 6. 오시는 길 ====================== -->
+<section class="fade-in">
+    <div class="label">Location</div>
+    <h2 class="section-title">오시는 길</h2>
+
+    <div class="venue-info">
+        <!-- [수정] 예식장 이름, 주소, 층/홀 -->
+        <div class="name">아주컨벤션홀</div>
+        <div class="addr" id="venue-address">서울특별시 강남구 테헤란로 123</div>
+        <div class="floor">3층 그랜드볼룸</div>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- 외부 지도 앱 바로가기 -->
+    <div class="map-btns">
+        <a href="#" id="naver-link" target="_blank">네이버지도</a>
+        <a href="#" id="kakao-link" target="_blank">카카오맵</a>
+        <a href="#" id="tmap-link" target="_blank">티맵</a>
+    </div>
+
+    <!-- [수정] 교통편 안내 -->
+    <div class="transport">
+        <h4>SUBWAY</h4>
+        <p>2호선 강남역 5번 출구에서 도보 5분</p>
+
+        <h4>BUS</h4>
+        <p>간선 146, 360, 740 / 지선 4412<br>강남역 정류장 하차</p>
+
+        <h4>PARKING</h4>
+        <p>건물 지하 1~3층 주차장 이용 가능 (2시간 무료)</p>
+    </div>
+</section>
+
+<!-- ====================== 7. 마음 전하실 곳 ====================== -->
+<section class="fade-in" style="background: var(--bg);">
+    <div class="label">With Heart</div>
+    <h2 class="section-title">마음 전하실 곳</h2>
+
+    <p style="font-size: 14px; color: var(--muted); margin-bottom: 30px; line-height: 2;">
+        참석이 어려우신 분들을 위해<br>
+        계좌번호를 안내드립니다.
+    </p>
+
+    <!-- 신랑측 -->
+    <button class="account-toggle" onclick="toggleAccount(this)">
+        <span>신랑측 계좌번호</span>
+        <span class="arrow">∨</span>
+    </button>
+    <div class="account-list">
+        <!-- [수정] 계좌번호 -->
+        <div class="account-item">
+            <div class="info">
+                <div class="label-small">신랑 김민준</div>
+                <div class="number">국민 123-456-789012</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('123-456-789012')">COPY</button>
+        </div>
+        <div class="account-item">
+            <div class="info">
+                <div class="label-small">아버지 김철수</div>
+                <div class="number">국민 234-567-890123</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('234-567-890123')">COPY</button>
+        </div>
+    </div>
+
+    <!-- 신부측 -->
+    <button class="account-toggle" onclick="toggleAccount(this)">
+        <span>신부측 계좌번호</span>
+        <span class="arrow">∨</span>
+    </button>
+    <div class="account-list">
+        <div class="account-item">
+            <div class="info">
+                <div class="label-small">신부 박서연</div>
+                <div class="number">신한 345-678-901234</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('345-678-901234')">COPY</button>
+        </div>
+        <div class="account-item">
+            <div class="info">
+                <div class="label-small">아버지 박정훈</div>
+                <div class="number">신한 456-789-012345</div>
+            </div>
+            <button class="copy-btn" onclick="copyText('456-789-012345')">COPY</button>
+        </div>
+    </div>
+</section>
+
+<!-- ====================== 8. 공유 / 푸터 ====================== -->
+<section class="share fade-in">
+    <div class="label">Thank You</div>
+    <h2 class="section-title">함께 해주셔서 감사합니다</h2>
+
+    <div class="share-btns">
+        <button onclick="copyURL()">URL 복사</button>
+        <button onclick="shareKakao()">카카오톡 공유</button>
+    </div>
+
+    <div class="footer-quote">
+        "Two souls, one heart"<br>
+        Minjun &amp; Seoyeon · 2026.06.20
+    </div>
+</section>
+
+<!-- 토스트 -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   [수정 영역] 청첩장 정보 — 이 부분만 바꾸면 됩니다
+   ========================================================= */
+const CONFIG = {
+    // 예식 일시 (D-day 계산용)
+    weddingDate: new Date('2026-06-20T14:00:00+09:00'),
+
+    // 예식장 정보
+    venue: {
+        name: 'WI 컨벤션',
+        address: '경기 수원시 팔달구 월드컵로 310',  // 네이버 지도가 이 주소를 검색해서 핀을 꽂습니다
+    },
+
+    // 청첩장 페이지 URL (배포 후 GitHub Pages 주소로 변경)
+    pageUrl: 'https://jihojieun.github.io',
+};
+
+/* =========================================================
+   D-Day 계산
+   ========================================================= */
+function updateDday() {
+    const now = new Date();
+    const diff = CONFIG.weddingDate - now;
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    const el = document.getElementById('dday-count');
+    if (el) {
+        if (days > 0) el.textContent = `D-${days}일`;
+        else if (days === 0) el.textContent = `D-DAY`;
+        else el.textContent = `결혼식이 끝났습니다`;
+    }
+}
+updateDday();
+
+/* =========================================================
+   네이버 지도 — 주소 입력 → 자동 좌표 변환 → 핀 표시
+   ========================================================= */
+function initMap() {
+    if (typeof naver === 'undefined' || !naver.maps) {
+        document.getElementById('map').innerHTML =
+            '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:13px;text-align:center;padding:20px;">네이버 지도 API 키를 설정하면<br>지도가 여기에 표시됩니다</div>';
+        return;
+    }
+
+    // 주소 → 좌표 변환 (Geocoding)
+    naver.maps.Service.geocode({
+        query: CONFIG.venue.address
+    }, function(status, response) {
+        if (status !== naver.maps.Service.Status.OK) {
+            console.error('주소 검색 실패');
+            return;
+        }
+
+        const result = response.v2.addresses[0];
+        if (!result) return;
+
+        const lat = parseFloat(result.y);
+        const lng = parseFloat(result.x);
+        const position = new naver.maps.LatLng(lat, lng);
+
+        // 지도 생성
+        const map = new naver.maps.Map('map', {
+            center: position,
+            zoom: 16,
+            zoomControl: true,
+            zoomControlOptions: {
+                position: naver.maps.Position.TOP_RIGHT
+            }
+        });
+
+        // 마커
+        new naver.maps.Marker({
+            position: position,
+            map: map,
+            title: CONFIG.venue.name
+        });
+
+        // 정보창
+        const infoWindow = new naver.maps.InfoWindow({
+            content: `<div style="padding:10px 14px;font-family:'Noto Serif KR',serif;font-size:13px;text-align:center;"><strong>${CONFIG.venue.name}</strong><br><span style="color:#888;font-size:11px;">${CONFIG.venue.address}</span></div>`
+        });
+        infoWindow.open(map, position);
+
+        // 외부 지도 앱 링크 자동 생성
+        setupMapLinks(lat, lng);
+    });
+}
+
+function setupMapLinks(lat, lng) {
+    const name = encodeURIComponent(CONFIG.venue.name);
+    const addr = encodeURIComponent(CONFIG.venue.address);
+
+    // 네이버지도
+    document.getElementById('naver-link').href =
+        `https://map.naver.com/v5/search/${addr}`;
+
+    // 카카오맵
+    document.getElementById('kakao-link').href =
+        `https://map.kakao.com/link/search/${addr}`;
+
+    // 티맵 (모바일 앱 호출)
+    document.getElementById('tmap-link').href =
+        `https://apis.openapi.sk.com/tmap/app/routes?appKey=&name=${name}&lon=${lng}&lat=${lat}`;
+}
+
+// 페이지 로드 후 지도 초기화
+window.addEventListener('load', initMap);
+
+// API가 안 불러진 경우에도 외부 지도 앱 링크는 동작하도록 (주소 기반)
+window.addEventListener('load', function() {
+    if (typeof naver === 'undefined') {
+        const addr = encodeURIComponent(CONFIG.venue.address);
+        document.getElementById('naver-link').href = `https://map.naver.com/v5/search/${addr}`;
+        document.getElementById('kakao-link').href = `https://map.kakao.com/link/search/${addr}`;
+        document.getElementById('tmap-link').href = `https://map.naver.com/v5/search/${addr}`;
+    }
+});
+
+/* =========================================================
+   계좌번호 토글
+   ========================================================= */
+function toggleAccount(btn) {
+    btn.classList.toggle('open');
+    const list = btn.nextElementSibling;
+    list.classList.toggle('open');
+}
+
+/* =========================================================
+   복사하기 / 토스트
+   ========================================================= */
+function copyText(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('계좌번호가 복사되었습니다');
+    }).catch(() => {
+        // fallback
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        showToast('계좌번호가 복사되었습니다');
+    });
+}
+
+function copyURL() {
+    navigator.clipboard.writeText(CONFIG.pageUrl).then(() => {
+        showToast('URL이 복사되었습니다');
+    });
+}
+
+function shareKakao() {
+    // 카카오톡 공유는 카카오 SDK 등록 필요. 임시로 URL 복사로 대체
+    copyURL();
+    showToast('URL을 복사했습니다. 카카오톡에 붙여넣어 주세요');
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+/* =========================================================
+   스크롤 진입 애니메이션
+   ========================================================= */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
