@@ -124,8 +124,6 @@ section {
 
 /* ===== 1. 커버 ===== */
 .cover {
-    height: 100vh;
-    min-height: 720px;
     padding: 0;
     background: var(--bg);
     display: flex;
@@ -135,7 +133,7 @@ section {
 
 .cover-photo {
     width: 100%;
-    flex: 1;
+    aspect-ratio: 4 / 5;
     background: url('images/main.jpeg') center/cover no-repeat,
                 linear-gradient(180deg, #d8cfbe 0%, #b8a98d 100%);
     position: relative;
@@ -1063,7 +1061,7 @@ const CONFIG = {
     },
     pageUrl: 'https://jihojieun.github.io/',
     shareImageUrl: 'https://jihojieun.github.io/images/main.jpeg',
-    kakaoJsKey: 'YOUR_KAKAO_JS_KEY',
+    kakaoJsKey: 'bd64256271e445086a5afb1ca4fb7b4b',
 };
 
 /* D-Day */
