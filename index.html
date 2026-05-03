@@ -5,23 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- ============================================================
-     [수정] 카카오톡/링크 공유 시 보이는 정보
+     카카오톡/링크 공유 시 보이는 정보
      ============================================================ -->
 <title>지호 ♥ 지은 결혼합니다</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="지호 ♥ 지은 결혼합니다">
 <meta property="og:description" content="2026년 9월 6일 일요일 오후 1시">
-<meta property="og:image" content="images/main.jpg">
+<meta property="og:image" content="https://jihojieun.github.io/images/main.jpg">
+<meta property="og:url" content="https://jihojieun.github.io/">
 
 <!-- 폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<!-- ============================================================
-     [수정] 네이버 지도 API - YOUR_CLIENT_ID 부분만 본인 키로 교체
-     발급 방법: https://www.ncloud.com → Maps → Application 등록
-     ============================================================ -->
+<!-- 네이버 지도 API -->
 <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=ypx3ild11c&submodules=geocoder"></script>
 
 <style>
@@ -57,7 +55,6 @@ body {
 
 img { max-width: 100%; display: block; }
 
-/* ===== 공통 섹션 ===== */
 section {
     padding: 80px 32px;
     text-align: center;
@@ -84,6 +81,13 @@ section {
     color: var(--ink);
 }
 
+/* 긴 한 줄 제목 (예식일시 등) - 어떤 화면에서도 한 줄 유지 */
+.section-title.one-line {
+    white-space: nowrap;
+    font-size: clamp(14px, 4.6vw, 22px);
+    letter-spacing: 0.05em;
+}
+
 .divider {
     width: 1px;
     height: 50px;
@@ -95,7 +99,7 @@ section {
 .cover {
     height: 100vh;
     min-height: 680px;
-    padding: 0;
+    padding: 60px 32px 50px;
     background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.4) 100%),
                 url('images/main.jpg') center/cover no-repeat,
                 linear-gradient(135deg, #d4a5a0 0%, #b08968 100%);
@@ -104,7 +108,6 @@ section {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 60px 32px 50px;
 }
 
 .cover-top {
@@ -153,11 +156,9 @@ section {
     font-family: 'Cormorant Garamond', serif;
     font-size: 14px;
     letter-spacing: 0.3em;
-    padding-top: 18px;
+    padding: 18px 20px 0;
     border-top: 1px solid rgba(255,255,255,0.4);
     display: inline-block;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 
 .scroll-hint {
@@ -247,7 +248,7 @@ section {
 
 .calendar td.wedding {
     position: relative;
-    color: #fff;
+    color: #fff !important;
     font-weight: 600;
 }
 
@@ -259,7 +260,7 @@ section {
     width: 28px; height: 28px;
     background: var(--accent);
     border-radius: 50%;
-    z-index: -1;
+    z-index: 0;
 }
 
 .calendar td.wedding span {
@@ -568,7 +569,6 @@ section {
     line-height: 2;
 }
 
-/* 토스트 */
 .toast {
     position: fixed;
     bottom: 30px;
@@ -586,7 +586,6 @@ section {
 
 .toast.show { transform: translateX(-50%) translateY(0); }
 
-/* 스크롤 진입 애니메이션 */
 .fade-in { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 </style>
@@ -594,7 +593,6 @@ section {
 <body>
 
 <!-- ====================== 1. 커버 ====================== -->
-<!-- [수정] 신랑신부 영문/한글 이름, 날짜 -->
 <section class="cover">
     <div class="cover-top">
         <div class="save-the-date">SAVE THE DATE</div>
@@ -602,11 +600,11 @@ section {
     </div>
     <div class="cover-bottom">
         <div class="cover-names">
-            Minjun<br>
+            Jiho<br>
             <span class="amp">&</span><br>
-            Seoyeon
+            Jieun
         </div>
-        <div class="cover-date">2026 . 06 . 20 . SAT</div>
+        <div class="cover-date">2026 . 09 . 06 . SUN</div>
     </div>
     <div class="scroll-hint">SCROLL ↓</div>
 </section>
@@ -628,33 +626,35 @@ section {
     <div class="divider"></div>
 
     <div class="signature">
-        <p><strong>김철수 · 이영자</strong>의 장남 <strong>민준</strong></p>
-        <p><strong>박정훈 · 최미경</strong>의 장녀 <strong>서연</strong></p>
+        <!-- [수정] 부모님 성함을 채워주세요 -->
+        <p><strong>○○○ · ○○○</strong>의 아들 <strong>지호</strong></p>
+        <p><strong>○○○ · ○○○</strong>의 딸 <strong>지은</strong></p>
     </div>
 </section>
 
 <!-- ====================== 3. 캘린더 / D-Day ====================== -->
 <section class="fade-in" style="background: var(--bg);">
     <div class="label">The Wedding Day</div>
-    <h2 class="section-title">2026년 6월 20일 토요일 오후 2시</h2>
+    <h2 class="section-title one-line">2026년 9월 6일 일요일 오후 1시</h2>
 
     <div class="calendar-wrap">
-        <div class="calendar-month">JUNE</div>
+        <div class="calendar-month">SEPTEMBER</div>
         <div class="calendar-year">2026</div>
         <table class="calendar">
             <thead>
                 <tr><th class="sun">SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>
             </thead>
             <tbody>
-                <tr><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td>6</td></tr>
-                <tr><td class="sun">7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
-                <tr><td class="sun">14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td class="wedding"><span>20</span></td></tr>
-                <tr><td class="sun">21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
-                <tr><td class="sun">28</td><td>29</td><td>30</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td></tr>
+                <!-- 9월 1일은 화요일, 9월 6일은 일요일 (예식일) -->
+                <tr><td class="empty">·</td><td class="empty">·</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                <tr><td class="wedding"><span>6</span></td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+                <tr><td class="sun">13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                <tr><td class="sun">20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+                <tr><td class="sun">27</td><td>28</td><td>29</td><td>30</td><td class="empty">·</td><td class="empty">·</td><td class="empty">·</td></tr>
             </tbody>
         </table>
         <div class="dday">
-            민준 ♥ 서연의 결혼식이 <strong id="dday-count">D-000</strong> 남았습니다
+            지호 ♥ 지은의 결혼식이 <strong id="dday-count">D-000</strong> 남았습니다
         </div>
     </div>
 </section>
@@ -665,7 +665,6 @@ section {
     <h2 class="section-title">우리의 순간</h2>
 
     <div class="gallery-grid">
-        <!-- [수정] images 폴더에 사진 6장 넣고 파일명 맞추기 -->
         <div class="item"><img src="images/g1.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#b08968)';this.style.display='none'"></div>
         <div class="item"><img src="images/g2.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#e8d5c4,#d4a5a0)';this.style.display='none'"></div>
         <div class="item"><img src="images/g3.jpg" alt="" onerror="this.parentNode.style.background='linear-gradient(135deg,#b08968,#8b6f4e)';this.style.display='none'"></div>
@@ -686,13 +685,15 @@ section {
                 <img src="images/groom.jpg" alt="신랑" onerror="this.parentNode.style.background='linear-gradient(135deg,#b08968,#8b6f4e)';this.style.display='none'">
             </div>
             <div class="person-role">GROOM</div>
-            <div class="person-name">김 민 준</div>
+            <div class="person-name">지 호</div>
             <div class="person-parents">
-                <strong>김철수</strong> · <strong>이영자</strong>의 장남
+                <!-- [수정] 부모님 성함 -->
+                <strong>○○○</strong> · <strong>○○○</strong>의 아들
             </div>
             <div class="contact-btns">
-                <a href="tel:01012345678" title="전화">📞</a>
-                <a href="sms:01012345678" title="문자">💬</a>
+                <!-- [수정] 신랑 연락처 -->
+                <a href="tel:01000000000" title="전화">📞</a>
+                <a href="sms:01000000000" title="문자">💬</a>
             </div>
         </div>
 
@@ -702,13 +703,15 @@ section {
                 <img src="images/bride.jpg" alt="신부" onerror="this.parentNode.style.background='linear-gradient(135deg,#d4a5a0,#e8c5be)';this.style.display='none'">
             </div>
             <div class="person-role">BRIDE</div>
-            <div class="person-name">박 서 연</div>
+            <div class="person-name">지 은</div>
             <div class="person-parents">
-                <strong>박정훈</strong> · <strong>최미경</strong>의 장녀
+                <!-- [수정] 부모님 성함 -->
+                <strong>○○○</strong> · <strong>○○○</strong>의 딸
             </div>
             <div class="contact-btns">
-                <a href="tel:01087654321" title="전화">📞</a>
-                <a href="sms:01087654321" title="문자">💬</a>
+                <!-- [수정] 신부 연락처 -->
+                <a href="tel:01000000000" title="전화">📞</a>
+                <a href="sms:01000000000" title="문자">💬</a>
             </div>
         </div>
     </div>
@@ -720,10 +723,10 @@ section {
     <h2 class="section-title">오시는 길</h2>
 
     <div class="venue-info">
-        <!-- [수정] 예식장 이름, 주소, 층/홀 -->
-        <div class="name">아주컨벤션홀</div>
-        <div class="addr" id="venue-address">서울특별시 강남구 테헤란로 123</div>
-        <div class="floor">3층 그랜드볼룸</div>
+        <div class="name">WI 컨벤션</div>
+        <div class="addr" id="venue-address">경기 수원시 팔달구 월드컵로 310</div>
+        <!-- [수정] 층/홀 정보가 있으면 입력 (없으면 비워두기) -->
+        <div class="floor"></div>
     </div>
 
     <div id="map"></div>
@@ -735,16 +738,16 @@ section {
         <a href="#" id="tmap-link" target="_blank">티맵</a>
     </div>
 
-    <!-- [수정] 교통편 안내 -->
+    <!-- [수정] 교통편 안내 - 실제 정보로 변경하세요 -->
     <div class="transport">
         <h4>SUBWAY</h4>
-        <p>2호선 강남역 5번 출구에서 도보 5분</p>
+        <p>수인분당선 수원시청역 하차<br>또는 1호선 수원역에서 택시 약 10분</p>
 
         <h4>BUS</h4>
-        <p>간선 146, 360, 740 / 지선 4412<br>강남역 정류장 하차</p>
+        <p>수원종합운동장(월드컵경기장) 정류장 하차</p>
 
         <h4>PARKING</h4>
-        <p>건물 지하 1~3층 주차장 이용 가능 (2시간 무료)</p>
+        <p>예식장 자체 주차장 이용 가능</p>
     </div>
 </section>
 
@@ -767,17 +770,17 @@ section {
         <!-- [수정] 계좌번호 -->
         <div class="account-item">
             <div class="info">
-                <div class="label-small">신랑 김민준</div>
-                <div class="number">국민 123-456-789012</div>
+                <div class="label-small">신랑 지호</div>
+                <div class="number">은행명 000-0000-0000</div>
             </div>
-            <button class="copy-btn" onclick="copyText('123-456-789012')">COPY</button>
+            <button class="copy-btn" onclick="copyText('000-0000-0000')">COPY</button>
         </div>
         <div class="account-item">
             <div class="info">
-                <div class="label-small">아버지 김철수</div>
-                <div class="number">국민 234-567-890123</div>
+                <div class="label-small">아버지</div>
+                <div class="number">은행명 000-0000-0000</div>
             </div>
-            <button class="copy-btn" onclick="copyText('234-567-890123')">COPY</button>
+            <button class="copy-btn" onclick="copyText('000-0000-0000')">COPY</button>
         </div>
     </div>
 
@@ -789,17 +792,17 @@ section {
     <div class="account-list">
         <div class="account-item">
             <div class="info">
-                <div class="label-small">신부 박서연</div>
-                <div class="number">신한 345-678-901234</div>
+                <div class="label-small">신부 지은</div>
+                <div class="number">은행명 000-0000-0000</div>
             </div>
-            <button class="copy-btn" onclick="copyText('345-678-901234')">COPY</button>
+            <button class="copy-btn" onclick="copyText('000-0000-0000')">COPY</button>
         </div>
         <div class="account-item">
             <div class="info">
-                <div class="label-small">아버지 박정훈</div>
-                <div class="number">신한 456-789-012345</div>
+                <div class="label-small">아버지</div>
+                <div class="number">은행명 000-0000-0000</div>
             </div>
-            <button class="copy-btn" onclick="copyText('456-789-012345')">COPY</button>
+            <button class="copy-btn" onclick="copyText('000-0000-0000')">COPY</button>
         </div>
     </div>
 </section>
@@ -816,7 +819,7 @@ section {
 
     <div class="footer-quote">
         "Two souls, one heart"<br>
-        Minjun &amp; Seoyeon · 2026.06.20
+        Jiho &amp; Jieun · 2026.09.06
     </div>
 </section>
 
@@ -825,20 +828,20 @@ section {
 
 <script>
 /* =========================================================
-   [수정 영역] 청첩장 정보 — 이 부분만 바꾸면 됩니다
+   청첩장 정보
    ========================================================= */
 const CONFIG = {
-    // 예식 일시 (D-day 계산용)
-    weddingDate: new Date('2026-06-20T14:00:00+09:00'),
+    // 예식 일시: 2026년 9월 6일 일요일 오후 1시
+    weddingDate: new Date('2026-09-06T13:00:00+09:00'),
 
     // 예식장 정보
     venue: {
         name: 'WI 컨벤션',
-        address: '경기 수원시 팔달구 월드컵로 310',  // 네이버 지도가 이 주소를 검색해서 핀을 꽂습니다
+        address: '경기 수원시 팔달구 월드컵로 310',
     },
 
-    // 청첩장 페이지 URL (배포 후 GitHub Pages 주소로 변경)
-    pageUrl: 'https://jihojieun.github.io',
+    // 청첩장 페이지 URL
+    pageUrl: 'https://jihojieun.github.io/',
 };
 
 /* =========================================================
@@ -858,16 +861,15 @@ function updateDday() {
 updateDday();
 
 /* =========================================================
-   네이버 지도 — 주소 입력 → 자동 좌표 변환 → 핀 표시
+   네이버 지도 — 주소 → 좌표 자동 변환 → 핀 표시
    ========================================================= */
 function initMap() {
     if (typeof naver === 'undefined' || !naver.maps) {
         document.getElementById('map').innerHTML =
-            '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:13px;text-align:center;padding:20px;">네이버 지도 API 키를 설정하면<br>지도가 여기에 표시됩니다</div>';
+            '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:13px;text-align:center;padding:20px;">지도를 불러오지 못했습니다</div>';
         return;
     }
 
-    // 주소 → 좌표 변환 (Geocoding)
     naver.maps.Service.geocode({
         query: CONFIG.venue.address
     }, function(status, response) {
@@ -883,7 +885,6 @@ function initMap() {
         const lng = parseFloat(result.x);
         const position = new naver.maps.LatLng(lat, lng);
 
-        // 지도 생성
         const map = new naver.maps.Map('map', {
             center: position,
             zoom: 16,
@@ -893,20 +894,17 @@ function initMap() {
             }
         });
 
-        // 마커
         new naver.maps.Marker({
             position: position,
             map: map,
             title: CONFIG.venue.name
         });
 
-        // 정보창
         const infoWindow = new naver.maps.InfoWindow({
             content: `<div style="padding:10px 14px;font-family:'Noto Serif KR',serif;font-size:13px;text-align:center;"><strong>${CONFIG.venue.name}</strong><br><span style="color:#888;font-size:11px;">${CONFIG.venue.address}</span></div>`
         });
         infoWindow.open(map, position);
 
-        // 외부 지도 앱 링크 자동 생성
         setupMapLinks(lat, lng);
     });
 }
@@ -915,23 +913,16 @@ function setupMapLinks(lat, lng) {
     const name = encodeURIComponent(CONFIG.venue.name);
     const addr = encodeURIComponent(CONFIG.venue.address);
 
-    // 네이버지도
     document.getElementById('naver-link').href =
         `https://map.naver.com/v5/search/${addr}`;
-
-    // 카카오맵
     document.getElementById('kakao-link').href =
         `https://map.kakao.com/link/search/${addr}`;
-
-    // 티맵 (모바일 앱 호출)
     document.getElementById('tmap-link').href =
         `https://apis.openapi.sk.com/tmap/app/routes?appKey=&name=${name}&lon=${lng}&lat=${lat}`;
 }
 
-// 페이지 로드 후 지도 초기화
 window.addEventListener('load', initMap);
 
-// API가 안 불러진 경우에도 외부 지도 앱 링크는 동작하도록 (주소 기반)
 window.addEventListener('load', function() {
     if (typeof naver === 'undefined') {
         const addr = encodeURIComponent(CONFIG.venue.address);
@@ -957,7 +948,6 @@ function copyText(text) {
     navigator.clipboard.writeText(text).then(() => {
         showToast('계좌번호가 복사되었습니다');
     }).catch(() => {
-        // fallback
         const el = document.createElement('textarea');
         el.value = text;
         document.body.appendChild(el);
@@ -975,7 +965,6 @@ function copyURL() {
 }
 
 function shareKakao() {
-    // 카카오톡 공유는 카카오 SDK 등록 필요. 임시로 URL 복사로 대체
     copyURL();
     showToast('URL을 복사했습니다. 카카오톡에 붙여넣어 주세요');
 }
@@ -999,6 +988,14 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+/* =========================================================
+   네이버 지도 인증 실패 시 디버그 메시지
+   ========================================================= */
+window.navermap_authFailure = function () {
+    document.getElementById('map').innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#888;font-size:13px;text-align:center;padding:20px;">네이버 지도 인증 실패<br>콘솔 → Web 서비스 URL에<br>https://jihojieun.github.io 등록 확인</div>';
+};
 </script>
 
 </body>
