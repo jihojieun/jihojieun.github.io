@@ -1178,7 +1178,8 @@ function shareKakao() {
     }
 
     // 4단계: 공유 호출
-    const naverMap = 'https://map.naver.com/v5/search/' + encodeURIComponent(CONFIG.venue.address);
+    // 위치 보기 버튼은 카카오맵 URL 사용 (카톡 인앱 브라우저 호환성 ↑)
+    const mapUrl = 'https://map.kakao.com/link/search/' + encodeURIComponent(CONFIG.venue.address);
 
     try {
         Kakao.Share.sendDefault({
@@ -1191,7 +1192,7 @@ function shareKakao() {
             },
             buttons: [
                 { title: '청첩장 보기', link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl } },
-                { title: '위치 보기', link: { mobileWebUrl: naverMap, webUrl: naverMap } },
+                { title: '위치 보기', link: { mobileWebUrl: mapUrl, webUrl: mapUrl } },
             ],
         });
         console.log('[Kakao] sendDefault 호출 완료');
