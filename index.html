@@ -940,7 +940,7 @@ table.cal td.wed span {
     <h2 class="title">오시는 길</h2>
 
     <div class="venue">
-        <div class="name">WI 컨벤션</div>
+        <div class="name">WI 컨벤션 W홀</div>
         <div class="addr" id="venue-address">경기 수원시 팔달구 월드컵로 310</div>
         <div class="floor"></div>
     </div>
@@ -1062,7 +1062,7 @@ table.cal td.wed span {
     const params = new URLSearchParams(window.location.search);
     if (params.get('go') === 'map') {
         const address = encodeURIComponent('경기 수원시 팔달구 월드컵로 310');
-        // 카카오맵으로 이동 (카카오톡 인앱 브라우저와 호환성 ↑)
+        // 네이버 지도로 이동 (모바일에서 네이버 지도 앱 설치되어 있으면 앱이 열림)
         window.location.replace('https://map.naver.com/p/search/' + address);
     }
 })();
