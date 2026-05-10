@@ -7,7 +7,7 @@
 <title>지호 ♥ 지은 결혼합니다</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="지호 ♥ 지은 결혼합니다">
-<meta property="og:description" content="2026년 9월 6일 일요일 오후 1시&#13;&#10;WI 컨벤션 W홀">
+<meta property="og:description" content="2026년 9월 6일 일요일 오후 1시 · WI 컨벤션 W홀">
 <meta property="og:image" content="https://jihojieun.github.io/images/kakao-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,7 +18,7 @@
 <!-- 트위터/슬랙/디스코드 등 다른 메신저용 -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="지호 ♥ 지은 결혼합니다">
-<meta name="twitter:description" content="2026년 9월 6일 일요일 오후 1시&#13;&#10;WI 컨벤션 W홀">
+<meta name="twitter:description" content="2026년 9월 6일 일요일 오후 1시 · WI 컨벤션 W홀">
 <meta name="twitter:image" content="https://jihojieun.github.io/images/kakao-share.jpg">
 
 <!-- 폰트: Pretendard(모던 한글 산세리프) + Italiana/Cormorant(우아한 영문) -->
@@ -1608,8 +1608,10 @@ lbEl.addEventListener('touchend', e => {
 
 /* 캘린더 일정 추가
    - Android: Google Calendar 딥링크 (앱 설치 시 앱 자동 실행, 미설치 시 모바일 웹)
-   - iOS:     data:text/calendar URL → Safari가 Calendar 앱의 추가 화면 자동 호출
-   - 데스크톱: .ics 파일 다운로드 */
+   - iOS:     정적 wedding.ics 파일로 navigation
+              → GitHub Pages가 Content-Type: text/calendar 로 응답하므로
+                Safari가 자동으로 캘린더 추가 UI를 띄움
+   - 데스크톱: 동적 .ics 파일 다운로드 */
 function addToCalendar() {
     const ua = navigator.userAgent;
     const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
@@ -1623,7 +1625,7 @@ function addToCalendar() {
     const fmtUTC = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
     /* === Android → Google Calendar 딥링크 ===
-       (window.open은 인앱 브라우저/팝업차단에서 막히므로 실제 anchor 클릭으로 navigation 트리거) */
+       location.href로 직접 이동 (anchor click/window.open은 인앱 브라우저에서 차단되는 경우 있음) */
     if (isAndroid) {
         const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
             + '&text='     + encodeURIComponent(title)
@@ -1631,18 +1633,18 @@ function addToCalendar() {
             + '&details='  + encodeURIComponent(description)
             + '&location=' + encodeURIComponent(location)
             + '&ctz=Asia/Seoul';
-
-        const link = document.createElement('a');
-        link.href = gcalUrl;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.location.href = gcalUrl;
         return;
     }
 
-    /* === ICS 본문 (iOS / 데스크톱 공용) === */
+    /* === iOS → 정적 wedding.ics 파일 ===
+       Safari가 text/calendar 응답을 인식해 캘린더 앱의 추가 시트를 띄움 */
+    if (isIOS) {
+        window.location.href = 'wedding.ics';
+        return;
+    }
+
+    /* === 데스크톱: ICS 파일 동적 생성 후 다운로드 === */
     const ics = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
@@ -1666,17 +1668,6 @@ function addToCalendar() {
         'END:VCALENDAR'
     ].join('\r\n');
 
-    /* === iOS → Blob URL로 이동, Safari가 Calendar 앱의 추가 화면 호출 ===
-       (iOS 12.2부터 data: URL navigation이 차단되어 Blob URL을 사용해야 함) */
-    if (isIOS) {
-        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        window.location.href = url;
-        setTimeout(() => URL.revokeObjectURL(url), 60000);
-        return;
-    }
-
-    /* === 데스크톱: ICS 파일 다운로드 === */
     const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -1685,7 +1676,7 @@ function addToCalendar() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    setTimeout(() => URL.revokeObjectURL(url), 100);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     showToast('캘린더 파일을 다운로드했습니다');
 }
 

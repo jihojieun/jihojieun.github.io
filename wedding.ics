@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Wedding Jiho Jieun//KR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:wedding-jiho-jieun-20260906@jihojieun.github.io
+DTSTAMP:20260101T000000Z
+DTSTART:20260906T040000Z
+DTEND:20260906T060000Z
+SUMMARY:지호 ♥ 지은 결혼식
+LOCATION:WI 컨벤션 W홀\, 경기 수원시 팔달구 월드컵로 310
+DESCRIPTION:지호와 지은의 결혼식에 초대합니다.\n모바일 청첩장: https://jihojieun.github.io/
+URL:https://jihojieun.github.io/
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:내일 지호 ♥ 지은 결혼식이 있습니다
+END:VALARM
+END:VEVENT
+END:VCALENDAR
