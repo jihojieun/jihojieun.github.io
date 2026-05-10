@@ -1596,26 +1596,67 @@ lbEl.addEventListener('touchend', e => {
     }
 }, { passive: true });
 
-/* 캘린더 일정 추가 */
+/* 캘린더 일정 추가
+   - Android: Google Calendar 딥링크 (앱 설치 시 앱 자동 실행, 미설치 시 모바일 웹)
+   - iOS:     data:text/calendar URL → Safari가 Calendar 앱의 추가 화면 자동 호출
+   - 데스크톱: .ics 파일 다운로드 */
 function addToCalendar() {
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    const isAndroid = /android/i.test(ua);
+
     const start = CONFIG.weddingDate;
     const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
-    const fmt = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const title = '지호 ♥ 지은 결혼식';
+    const location = CONFIG.venue.name + ', ' + CONFIG.venue.address;
+    const description = '지호와 지은의 결혼식에 초대합니다. ' + CONFIG.pageUrl;
+    const fmtUTC = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+    /* === Android → Google Calendar 딥링크 === */
+    if (isAndroid) {
+        const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+            + '&text='     + encodeURIComponent(title)
+            + '&dates='    + fmtUTC(start) + '/' + fmtUTC(end)
+            + '&details='  + encodeURIComponent(description)
+            + '&location=' + encodeURIComponent(location)
+            + '&ctz=Asia/Seoul';
+        window.open(url, '_blank');
+        showToast('캘린더 앱이 열립니다');
+        return;
+    }
+
+    /* === ICS 본문 (iOS / 데스크톱 공용) === */
     const ics = [
-        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Wedding//KR',
-        'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Wedding//KR',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
         'BEGIN:VEVENT',
         'UID:wedding-jiho-jieun-' + start.getTime() + '@jihojieun.github.io',
-        'DTSTAMP:' + fmt(new Date()),
-        'DTSTART:' + fmt(start),
-        'DTEND:' + fmt(end),
-        'SUMMARY:지호 ♥ 지은 결혼식',
-        'LOCATION:' + CONFIG.venue.name + ', ' + CONFIG.venue.address,
-        'DESCRIPTION:지호와 지은의 결혼식에 초대합니다.\\n청첩장: ' + CONFIG.pageUrl,
-        'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY',
+        'DTSTAMP:' + fmtUTC(new Date()),
+        'DTSTART:' + fmtUTC(start),
+        'DTEND:'   + fmtUTC(end),
+        'SUMMARY:' + title,
+        'LOCATION:' + location,
+        'DESCRIPTION:' + description,
+        'BEGIN:VALARM',
+        'TRIGGER:-P1D',
+        'ACTION:DISPLAY',
         'DESCRIPTION:내일 지호 ♥ 지은 결혼식이 있습니다',
-        'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'
+        'END:VALARM',
+        'END:VEVENT',
+        'END:VCALENDAR'
     ].join('\r\n');
+
+    /* === iOS → data URL로 이동, Safari가 Calendar 앱 호출 === */
+    if (isIOS) {
+        window.location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+        showToast('캘린더 앱이 열립니다');
+        return;
+    }
+
+    /* === 데스크톱: ICS 파일 다운로드 === */
     const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -1625,7 +1666,7 @@ function addToCalendar() {
     link.click();
     document.body.removeChild(link);
     setTimeout(() => URL.revokeObjectURL(url), 100);
-    showToast('캘린더에 일정을 추가했습니다');
+    showToast('캘린더 파일을 다운로드했습니다');
 }
 
 /* =========================================================
