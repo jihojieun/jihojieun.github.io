@@ -792,6 +792,201 @@ table.cal td.wed span {
 }
 
 .toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ===== 9. 사진 업로드 ===== */
+.upload-section { background: var(--bg); }
+
+.upload-form {
+    max-width: 360px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.upload-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    transition: border-color 0.2s ease;
+    outline: none;
+}
+
+.upload-input:focus { border-color: var(--ink); }
+.upload-input::placeholder { color: var(--mute); }
+
+.file-label {
+    width: 100%;
+    padding: 28px 22px;
+    background: var(--paper);
+    border: 1px dashed #d0ccc2;
+    color: var(--sub);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.file-label:hover,
+.file-label.has-files {
+    border-color: var(--ink);
+    color: var(--ink);
+    border-style: solid;
+}
+
+.file-label svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.4;
+}
+
+.file-label-main {
+    font-size: 13px;
+    letter-spacing: 0.02em;
+}
+
+.file-label-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--mute);
+    text-transform: uppercase;
+}
+
+.file-preview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.file-preview:empty { margin-top: 0; }
+
+.file-preview .thumb {
+    aspect-ratio: 1 / 1;
+    background: var(--soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.file-preview .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.file-preview .thumb .remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 11px;
+    line-height: 20px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+}
+
+.upload-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 14px;
+    background: var(--ink);
+    color: #fff;
+    border: 1px solid var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    transition: all 0.25s ease;
+}
+
+.upload-btn:disabled {
+    background: var(--soft);
+    color: var(--mute);
+    border-color: var(--line);
+    cursor: not-allowed;
+}
+
+.upload-progress {
+    margin-top: 18px;
+    display: none;
+}
+
+.upload-progress.active { display: block; }
+
+.progress-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--sub);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.progress-text .pct {
+    color: var(--ink);
+    font-weight: 400;
+    margin-left: 6px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 2px;
+    background: var(--line);
+    overflow: hidden;
+    border-radius: 1px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--ink);
+    transition: width 0.2s ease;
+}
+
+.upload-result {
+    margin-top: 18px;
+    padding: 14px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.7;
+    display: none;
+}
+
+.upload-result.success {
+    display: block;
+    background: var(--soft);
+    color: var(--ink);
+}
+
+.upload-result.error {
+    display: block;
+    border: 1px solid #e2c4c0;
+    color: #b86a62;
+}
+
+.upload-hint {
+    margin-top: 14px;
+    font-size: 11px;
+    color: var(--mute);
+    text-align: center;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+}
 </style>
 </head>
 <body>
@@ -1024,7 +1219,53 @@ table.cal td.wed span {
     </div>
 </section>
 
-<!-- ====================== 8. 공유 / 푸터 ====================== -->
+<!-- ====================== 9. 사진 업로드 ====================== -->
+<section class="upload-section fade-in">
+    <div class="eyebrow">Photo Share</div>
+    <h2 class="title">사진을 보내주세요</h2>
+
+    <p class="intro-text">
+        오늘의 순간을 신랑 신부에게<br>
+        함께 나눠주세요.
+    </p>
+
+    <div class="upload-form">
+        <input type="text" id="guest-name" class="upload-input" placeholder="성함을 입력해 주세요" maxlength="20">
+
+        <label for="photo-input" class="file-label" id="file-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span class="file-label-main" id="file-label-main">사진을 선택해 주세요</span>
+            <span class="file-label-sub">SELECT PHOTOS</span>
+        </label>
+        <input type="file" id="photo-input" accept="image/*" multiple style="display:none">
+
+        <div class="file-preview" id="file-preview"></div>
+
+        <button class="upload-btn" id="upload-btn" onclick="uploadPhotos()" disabled>사진 보내기</button>
+
+        <div class="upload-progress" id="upload-progress">
+            <div class="progress-text">
+                <span id="progress-label">업로드 중입니다</span>
+                <span class="pct" id="progress-pct">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="upload-result" id="upload-result"></div>
+
+        <div class="upload-hint">
+            한 번에 최대 20장까지, 파일당 50MB 이하
+        </div>
+    </div>
+</section>
+
+<!-- ====================== 10. 공유 / 푸터 ====================== -->
 <section class="share-section fade-in">
     <div class="eyebrow">Thank You</div>
     <h2 class="title">함께 해주셔서 감사합니다</h2>
@@ -1076,6 +1317,21 @@ const CONFIG = {
     pageUrl: 'https://jihojieun.github.io/',
     shareImageUrl: 'https://jihojieun.github.io/images/main.jpeg',
     kakaoJsKey: '74c4f6e2d4a9001581e69536675d273c',
+
+    /* ===== 사진 업로드 서버 =====
+       - 페이지가 github.io에서 열리면 → 운영 서버 (배포 시)
+       - 그 외(로컬 테스트, 내부망) → 개발 서버
+       ※ HTTPS 페이지(github.io)에서 HTTP 서버로는 업로드가 차단됩니다(Mixed Content).
+         배포 시 운영 서버에 HTTPS(SSL 인증서) 적용 필수. */
+    uploadServer: {
+        dev:  'http://192.168.50.113:3000',
+        prod: 'https://devrok.asuscomm.com:3000',
+    },
+    get uploadUrl() {
+        const isProd = location.hostname.endsWith('github.io')
+                    || location.hostname.endsWith('devrok.asuscomm.com');
+        return (isProd ? this.uploadServer.prod : this.uploadServer.dev) + '/upload';
+    },
 };
 
 /* D-Day */
@@ -1301,7 +1557,156 @@ function addToCalendar() {
     showToast('캘린더에 일정을 추가했습니다');
 }
 
-/* 스크롤 진입 */
+/* =========================================================
+   사진 업로드 (XHR 기반 - progress 이벤트 추적)
+   - 서버 URL은 CONFIG.uploadUrl 에서 자동 결정 (dev/prod)
+   - multipart/form-data 로 'photos' 필드에 파일 배열 전송
+   - 'guestName' 필드에 하객 이름 동봉
+   ========================================================= */
+let selectedFiles = [];
+const MAX_FILES = 20;
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+
+const fileInput   = document.getElementById('photo-input');
+const fileLabel   = document.getElementById('file-label');
+const fileLabelMain = document.getElementById('file-label-main');
+const filePreview = document.getElementById('file-preview');
+const uploadBtn   = document.getElementById('upload-btn');
+const guestNameEl = document.getElementById('guest-name');
+const progressBox = document.getElementById('upload-progress');
+const progressFill = document.getElementById('progress-fill');
+const progressPct = document.getElementById('progress-pct');
+const progressLabel = document.getElementById('progress-label');
+const resultBox   = document.getElementById('upload-result');
+
+fileInput.addEventListener('change', function(e) {
+    const incoming = Array.from(e.target.files || []);
+    incoming.forEach(f => {
+        if (selectedFiles.length >= MAX_FILES) return;
+        if (f.size > MAX_FILE_SIZE) {
+            showToast(`${f.name}: 50MB를 초과합니다`);
+            return;
+        }
+        if (!f.type.startsWith('image/')) return;
+        selectedFiles.push(f);
+    });
+    fileInput.value = ''; // 같은 파일 재선택 가능하게
+    renderPreview();
+});
+
+function renderPreview() {
+    filePreview.innerHTML = '';
+    selectedFiles.forEach((file, idx) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'thumb';
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.onload = () => URL.revokeObjectURL(img.src);
+        const rm = document.createElement('span');
+        rm.className = 'remove';
+        rm.textContent = '✕';
+        rm.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            selectedFiles.splice(idx, 1);
+            renderPreview();
+        };
+        thumb.appendChild(img);
+        thumb.appendChild(rm);
+        filePreview.appendChild(thumb);
+    });
+
+    const n = selectedFiles.length;
+    if (n > 0) {
+        fileLabel.classList.add('has-files');
+        fileLabelMain.textContent = `${n}장 선택됨 · 더 추가하려면 탭`;
+        uploadBtn.disabled = false;
+    } else {
+        fileLabel.classList.remove('has-files');
+        fileLabelMain.textContent = '사진을 선택해 주세요';
+        uploadBtn.disabled = true;
+    }
+}
+
+function uploadPhotos() {
+    const name = guestNameEl.value.trim();
+    if (!name) {
+        showToast('성함을 입력해 주세요');
+        guestNameEl.focus();
+        return;
+    }
+    if (selectedFiles.length === 0) {
+        showToast('사진을 선택해 주세요');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('guestName', name);
+    selectedFiles.forEach(f => formData.append('photos', f, f.name));
+
+    // UI 초기화
+    resultBox.className = 'upload-result';
+    resultBox.textContent = '';
+    progressBox.classList.add('active');
+    progressFill.style.width = '0%';
+    progressPct.textContent = '0%';
+    progressLabel.textContent = '업로드 중입니다';
+    uploadBtn.disabled = true;
+    uploadBtn.textContent = '전송 중…';
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', CONFIG.uploadUrl);
+    xhr.timeout = 5 * 60 * 1000; // 5분
+
+    // 업로드 진행률
+    xhr.upload.addEventListener('progress', function(e) {
+        if (!e.lengthComputable) return;
+        const pct = Math.round((e.loaded / e.total) * 100);
+        progressFill.style.width = pct + '%';
+        progressPct.textContent = pct + '%';
+        if (pct >= 100) progressLabel.textContent = '서버에서 처리 중입니다';
+    });
+
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            let count = selectedFiles.length;
+            try {
+                const data = JSON.parse(xhr.responseText);
+                if (data && typeof data.count === 'number') count = data.count;
+            } catch (_) {}
+
+            resultBox.className = 'upload-result success';
+            resultBox.innerHTML = `사진 <strong>${count}장</strong>이 전달되었습니다.<br>소중한 마음 감사합니다 ♥`;
+            // 폼 리셋
+            selectedFiles = [];
+            renderPreview();
+            guestNameEl.value = '';
+            progressBox.classList.remove('active');
+        } else {
+            handleUploadError(`업로드 실패 (${xhr.status})`);
+        }
+        uploadBtn.disabled = false;
+        uploadBtn.textContent = '사진 보내기';
+        // 미선택 상태로 돌아왔으니 다시 비활성화
+        if (selectedFiles.length === 0) uploadBtn.disabled = true;
+    };
+
+    xhr.onerror   = () => handleUploadError('네트워크 오류로 업로드에 실패했습니다');
+    xhr.ontimeout = () => handleUploadError('시간 초과로 업로드에 실패했습니다');
+    xhr.onabort   = () => handleUploadError('업로드가 취소되었습니다');
+
+    xhr.send(formData);
+}
+
+function handleUploadError(msg) {
+    progressBox.classList.remove('active');
+    resultBox.className = 'upload-result error';
+    resultBox.innerHTML = `${msg}<br><span style="font-size:11px;color:var(--mute);">잠시 후 다시 시도해 주세요</span>`;
+    uploadBtn.disabled = selectedFiles.length === 0;
+    uploadBtn.textContent = '사진 보내기';
+}
+
+
 const obs = new IntersectionObserver(entries => {
     entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('visible'); });
 }, { threshold: 0.1 });
