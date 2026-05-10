@@ -7,7 +7,7 @@
 <title>지호 ♥ 지은 결혼합니다</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="지호 ♥ 지은 결혼합니다">
-<meta property="og:description" content="2026년 9월 6일 일요일 오후 1시 · WI 컨벤션 W홀">
+<meta property="og:description" content="2026년 9월 6일 일요일 오후 1시 · WI 컨벤션">
 <meta property="og:image" content="https://jihojieun.github.io/images/main.jpeg">
 <meta property="og:url" content="https://jihojieun.github.io/">
 
@@ -683,6 +683,17 @@ table.cal td.wed span {
     line-height: 2;
 }
 
+.watermark {
+    margin-top: 44px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--mute);
+    opacity: 0.55;
+    text-transform: lowercase;
+}
+
 /* ===== 라이트박스 ===== */
 .lightbox {
     position: fixed;
@@ -1313,7 +1324,7 @@ table.cal td.wed span {
         <div class="upload-result" id="upload-result"></div>
 
         <div class="upload-hint">
-            한 번에 최대 40개 · 사진 500MB · 영상 2GB 이하<br>
+            한 번에 최대 100개 · 사진 500MB · 영상 2GB 이하<br>
             (동영상은 용량이 크니 Wi-Fi 환경을 권장합니다)
         </div>
     </div>
@@ -1333,6 +1344,8 @@ table.cal td.wed span {
         Two souls, one heart<br>
         Jiho &amp; Jieun · 2026.09.06
     </div>
+
+    <div class="watermark">made by jiho</div>
 </section>
 
 <!-- 라이트박스 -->
@@ -1370,6 +1383,10 @@ const CONFIG = {
     },
     pageUrl: 'https://jihojieun.github.io/',
     shareImageUrl: 'https://jihojieun.github.io/images/main.jpeg',
+    /* 카카오톡 공유 시 미리보기에 보이는 이미지
+       권장: 1200×630 px (1.91:1), 또는 800×400 px / 800×800 px
+       최대 5MB, JPG/PNG */
+    kakaoShareImage: 'https://jihojieun.github.io/images/kakao-share.jpg',
     kakaoJsKey: '74c4f6e2d4a9001581e69536675d273c',
 
     /* ===== 사진 업로드 서버 =====
@@ -1512,7 +1529,7 @@ function shareKakao() {
             content: {
                 title: '지호 ♥ 지은 결혼합니다',
                 description: '2026년 9월 6일 일요일 오후 1시\n' + CONFIG.venue.name,
-                imageUrl: CONFIG.shareImageUrl,
+                imageUrl: CONFIG.kakaoShareImage,
                 link: { mobileWebUrl: CONFIG.pageUrl, webUrl: CONFIG.pageUrl },
             },
             buttons: [
@@ -1618,7 +1635,7 @@ function addToCalendar() {
    - 'guestName' 필드에 하객 이름 동봉
    ========================================================= */
 let selectedFiles = [];
-const MAX_FILES = 40;
+const MAX_FILES = 100;
 const MAX_SIZE_IMAGE = 500 * 1024 * 1024;        // 사진 500MB
 const MAX_SIZE_VIDEO = 2 * 1024 * 1024 * 1024;   // 영상 2GB
 
@@ -1809,13 +1826,7 @@ function uploadPhotos() {
     };
 
     xhr.onerror = function() {
-        // CORS / 연결거부 / DNS / Mixed Content 등은 모두 onerror 로 떨어짐
-        // 브라우저는 보안상 정확한 원인을 JS에 알려주지 않음 → 콘솔/Network 탭 확인 필요
-        console.error('[UPLOAD] 네트워크 오류. 다음을 확인해주세요:');
-        console.error('  1) 서버가 실행 중인가?  →  브라우저에서', targetUrl.replace('/upload',''), '직접 열어보기');
-        console.error('  2) 페이지와 서버가 같은 네트워크에 있는가?');
-        console.error('  3) HTTPS 페이지에서 HTTP 서버로 호출하고 있지 않은가? (Mixed Content)');
-        console.error('  4) 서버의 CORS 설정에 origin', location.origin, '이 허용되어 있는가?');
+        console.error('[UPLOAD] 네트워크 오류:', xhr.status || '연결 실패');
         handleUploadError('네트워크 오류로 업로드에 실패했습니다', targetUrl);
     };
     xhr.ontimeout = () => handleUploadError('시간 초과로 업로드에 실패했습니다', targetUrl);
