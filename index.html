@@ -7,7 +7,7 @@
 <title>지호 ♥ 지은 결혼합니다</title>
 <meta property="og:type" content="website">
 <meta property="og:title" content="지호 ♥ 지은 결혼합니다">
-<meta property="og:description" content="2026년 9월 6일 일요일 오후 1시&#10;WI 컨벤션 W홀 test">
+<meta property="og:description" content="2026년 9월 6일 일요일 오후 1시&#13;&#10;WI 컨벤션 W홀">
 <meta property="og:image" content="https://jihojieun.github.io/images/kakao-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,7 +18,7 @@
 <!-- 트위터/슬랙/디스코드 등 다른 메신저용 -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="지호 ♥ 지은 결혼합니다">
-<meta name="twitter:description" content="2026년 9월 6일 일요일 오후 1시&#10;WI 컨벤션 W홀">
+<meta name="twitter:description" content="2026년 9월 6일 일요일 오후 1시&#13;&#10;WI 컨벤션 W홀">
 <meta name="twitter:image" content="https://jihojieun.github.io/images/kakao-share.jpg">
 
 <!-- 폰트: Pretendard(모던 한글 산세리프) + Italiana/Cormorant(우아한 영문) -->
@@ -1396,7 +1396,7 @@ const CONFIG = {
     /* 카카오톡 공유 시 미리보기에 보이는 이미지
        권장: 1200×630 px (1.91:1), 또는 800×400 px / 800×800 px
        최대 5MB, JPG/PNG */
-    kakaoShareImage: 'https://jihojieun.github.io/images/kakao-share.jpg?v=2',
+    kakaoShareImage: 'https://jihojieun.github.io/images/kakao-share.jpg',
     kakaoJsKey: '74c4f6e2d4a9001581e69536675d273c',
 
     /* ===== 사진 업로드 서버 =====
@@ -1622,16 +1622,23 @@ function addToCalendar() {
     const description = '지호와 지은의 결혼식에 초대합니다. ' + CONFIG.pageUrl;
     const fmtUTC = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
-    /* === Android → Google Calendar 딥링크 === */
+    /* === Android → Google Calendar 딥링크 ===
+       (window.open은 인앱 브라우저/팝업차단에서 막히므로 실제 anchor 클릭으로 navigation 트리거) */
     if (isAndroid) {
-        const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+        const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
             + '&text='     + encodeURIComponent(title)
             + '&dates='    + fmtUTC(start) + '/' + fmtUTC(end)
             + '&details='  + encodeURIComponent(description)
             + '&location=' + encodeURIComponent(location)
             + '&ctz=Asia/Seoul';
-        window.open(url, '_blank');
-        showToast('캘린더 앱이 열립니다');
+
+        const link = document.createElement('a');
+        link.href = gcalUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         return;
     }
 
@@ -1659,10 +1666,13 @@ function addToCalendar() {
         'END:VCALENDAR'
     ].join('\r\n');
 
-    /* === iOS → data URL로 이동, Safari가 Calendar 앱 호출 === */
+    /* === iOS → Blob URL로 이동, Safari가 Calendar 앱의 추가 화면 호출 ===
+       (iOS 12.2부터 data: URL navigation이 차단되어 Blob URL을 사용해야 함) */
     if (isIOS) {
-        window.location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-        showToast('캘린더 앱이 열립니다');
+        const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        window.location.href = url;
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
         return;
     }
 
