@@ -1325,7 +1325,7 @@ const CONFIG = {
          배포 시 운영 서버에 HTTPS(SSL 인증서) 적용 필수. */
     uploadServer: {
         dev:  'http://192.168.50.113:3000',
-        prod: 'https://devrok.asuscomm.com:3000',
+        prod: 'https://devrok.asuscomm.com',
     },
     get uploadUrl() {
         const isProd = location.hostname.endsWith('github.io')
