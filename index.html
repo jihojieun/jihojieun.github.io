@@ -2789,7 +2789,7 @@ function uploadPhotos() {
 
     xhr.onerror = function() {
         console.error('[UPLOAD] 네트워크 오류:', xhr.status || '연결 실패');
-        handleUploadError('네트워크 오류로 업로드에 실패했습니다', targetUrl);
+        handleUploadError('예식 일주일 전 서버 오픈 예정입니다.', targetUrl);
     };
     xhr.ontimeout = () => handleUploadError('시간 초과로 업로드에 실패했습니다', targetUrl);
     xhr.onabort   = () => handleUploadError('업로드가 취소되었습니다', targetUrl);
