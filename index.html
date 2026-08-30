@@ -1438,6 +1438,15 @@ body.intro-active .quick-menu-panel {
     margin-left: 6px;
 }
 
+.progress-notice {
+    margin: -2px 0 10px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--mute);
+    text-align: center;
+}
+
 .progress-bar {
     width: 100%;
     height: 2px;
@@ -1844,6 +1853,7 @@ body.intro-active .quick-menu-panel {
                 <span id="progress-label">업로드 중입니다</span>
                 <span class="pct" id="progress-pct">0%</span>
             </div>
+            <div class="progress-notice">업로드 중이면 페이지를 유지해주세요.</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
@@ -2623,6 +2633,11 @@ function formatDuration(sec) {
     return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+function showUploadSelectionError(message) {
+    resultBox.className = 'upload-result error';
+    resultBox.innerHTML = message;
+}
+
 fileInput.addEventListener('change', function(e) {
     const incoming = Array.from(e.target.files || []);
     let overImage = 0, overVideo = 0, overCount = 0, wrongType = 0;
@@ -2637,10 +2652,18 @@ fileInput.addEventListener('change', function(e) {
         selectedFiles.push(f);
     });
 
-    if (overCount)        showToast(`최대 ${MAX_FILES}개까지만 업로드 가능합니다`);
+    if (overCount) {
+        const msg = `100개 이상의 파일을 선택했습니다.<br>한 번에 최대 ${MAX_FILES}개까지만 업로드 가능합니다.`;
+        showToast(`100개 이상의 파일을 선택했습니다`);
+        showUploadSelectionError(msg);
+    }
     else if (overImage)   showToast(`사진 ${overImage}개가 500MB를 초과해 제외되었습니다`);
     else if (overVideo)   showToast(`영상 ${overVideo}개가 2GB를 초과해 제외되었습니다`);
     else if (wrongType)   showToast(`사진/영상 파일만 업로드 가능합니다`);
+    else {
+        resultBox.className = 'upload-result';
+        resultBox.textContent = '';
+    }
 
     fileInput.value = '';
     renderPreview();
