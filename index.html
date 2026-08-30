@@ -325,6 +325,35 @@ section {
     letter-spacing: 0.04em;
 }
 
+.btn-guest-snap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin: -16px auto 34px;
+    padding: 11px 22px;
+    background: rgba(255, 255, 255, 0.76);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+
+.btn-guest-snap:active {
+    background: rgba(244, 242, 237, 0.9);
+    border-color: #d7d2c8;
+    transform: scale(0.98);
+}
+
+.btn-guest-snap svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.5;
+}
+
 .calendar-grid {
     margin: 40px auto 0;
     max-width: 320px;
@@ -1543,6 +1572,15 @@ body.intro-active .quick-menu-panel {
     <div class="eyebrow">The Wedding Day</div>
     <h2 class="title one-line">2026년 9월 6일 일요일 오후 1시</h2>
     <p class="wedding-place-sub">수원 WI컨벤션 W홀</p>
+
+    <button class="btn-guest-snap" type="button" onclick="scrollToSection('guest-snap')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M8 5l1.5-2h5L16 5"/>
+        </svg>
+        <span>사진 전하러 가기</span>
+    </button>
 
     <div class="calendar-grid">
         <div class="cal-month">SEPTEMBER</div>
