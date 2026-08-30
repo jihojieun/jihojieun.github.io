@@ -329,29 +329,31 @@ section {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    margin: -16px auto 34px;
-    padding: 11px 22px;
-    background: rgba(255, 255, 255, 0.76);
-    border: 1px solid var(--line);
+    gap: 9px;
+    margin: -12px auto 36px;
+    padding: 13px 26px;
+    background: rgba(248, 245, 238, 0.96);
+    border: 1px solid #b8ad9d;
     color: var(--ink);
     font-family: 'Noto Serif KR', serif;
-    font-weight: 300;
-    font-size: 13px;
+    font-weight: 400;
+    font-size: 14px;
     letter-spacing: 0.03em;
-    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    box-shadow: 0 10px 26px rgba(94, 83, 65, 0.1);
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
 }
 
 .btn-guest-snap:active {
-    background: rgba(244, 242, 237, 0.9);
-    border-color: #d7d2c8;
+    background: rgba(239, 234, 225, 0.96);
+    border-color: #9f927f;
     transform: scale(0.98);
+    box-shadow: 0 6px 18px rgba(94, 83, 65, 0.08);
 }
 
 .btn-guest-snap svg {
-    width: 14px;
-    height: 14px;
-    stroke-width: 1.5;
+    width: 15px;
+    height: 15px;
+    stroke-width: 1.7;
 }
 
 .calendar-grid {
@@ -1579,7 +1581,7 @@ body.intro-active .quick-menu-panel {
             <circle cx="12" cy="12" r="3"/>
             <path d="M8 5l1.5-2h5L16 5"/>
         </svg>
-        <span>사진 전하러 가기</span>
+        <span>게스트 스냅으로 이동</span>
     </button>
 
     <div class="calendar-grid">
